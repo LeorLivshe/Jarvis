@@ -12,7 +12,7 @@
 1. `pytest` in `jarvis/`. Record what passes and what fails. Fix nothing yet.
 2. Read `jarvis/app.py`, `core/events.py`, `server/api.py`, the router, and the usage-log writer. Note the real names, which may differ from the ones in the spec.
 3. List `%USERPROFILE%\.claude\agents\*.md` (and the project's `.claude\agents`). Record each agent's `name`, `model` and `tools`, and update the proposed `org.toml`.
-4. Open one recent transcript `.jsonl` and confirm three fields: `message.model`, `message.usage`, and how subagent lines are marked (`isSidechain`, agent id). Change Phase 4's parser if any differ.
+4. Open the Anthropic provider and the code that writes `usage.jsonl`. Note whether it already records the `usage` token fields from each API response. If it doesn't, Phase 4.1 adds them.
 
 5. In `config.toml`, change the monthly spend cap from $20 to **$10**. Check that the router's 80% warning now fires at $8.
 
@@ -44,15 +44,17 @@
 | 3.3 State reducer | same | start/finish matched by `tool_use_id`; stalled after the time limit; waiting after `Notification`; department rollup order |
 | 3.4 UI | `workspace.html` | state colours and icons, task text, elapsed time, department counts |
 
-## Phase 4: Token tracker
+## Phase 4: API cost tracker (Anthropic API key only)
 | Task | Files | Tests |
 |---|---|---|
-| 4.1 Schema | migration adds `token_usage(ts, source, session, agent, model, input, output, cache_read, cache_write, cost_usd)` and `ingest_offsets(path, offset)` | the migration can run twice safely |
-| 4.2 Pricing | `workspace/pricing.toml`, `pricing.py` | unknown model is counted as $0 and flagged |
-| 4.3 Ingest from Jarvis | `usage_ingest.py` reading `usage.jsonl` | incremental; no double counting |
-| 4.4 Ingest from Claude Code | same, reading transcripts | assistant lines only; subagent lines credited to the agent; file rotation handled |
-| 4.5 API | `GET /api/usage?range=today\|7d\|month&group=model\|agent\|dept` | totals add up across groupings |
-| 4.6 Usage tab | `workspace.html` | stacked area chart, bars, budget bar, cache-hit percentage, 5-hour estimate (in SVG) |
+| 4.1 Log every API call | Anthropic provider writes `usage` (input, output, cache write, cache read) and the cost to `usage.jsonl` | a fake response is logged with the right tokens and cost |
+| 4.2 Pricing | `workspace/pricing.toml`, `pricing.py` | an unknown model is flagged, never silently priced at $0 |
+| 4.3 Schema and ingest | `api_usage` table plus stored file offsets; `usage_ingest.py` | reading the file twice doesn't double-count; a half-written last line is skipped |
+| 4.4 Cap enforcement | router: warn at $8; at $10, stop routing to Opus | a test at $9.99, $10.00 and the new-month rollover |
+| 4.5 API | `GET /api/usage?range=today\|month` | totals match the sum of the rows |
+| 4.6 Usage tab | `workspace.html` | spend against the cap, spend by model, cache-hit percentage, recent calls |
+
+Claude Code and agent usage on your subscription is out of scope: nothing reads its transcripts.
 
 ## Phase 5: Alerts
 - 5.1 `workspace/alerts.py`: rules for stalled, waiting, 80% budget, host or Ollama unreachable. Includes a cool-down so the same alert doesn't repeat.
@@ -70,9 +72,9 @@
    - Haiku: Scheduler, Publisher, Asset Manager, Curator.
    - Sonnet: Content Creator, Strategist, Brand and Canva Designer, Email.
    - Opus: Campaign Orchestrator and Jarvis's hard tier only.
-   - The usage tab will show what this saves.
-3. **Prompt caching in Jarvis's Anthropic provider.** Cache the system prompt and memory block. The cache-hit chart will show the effect.
-4. **Per-department budgets with automatic downgrade.** At 80% of a budget, the router moves that department one model tier down. At 100% it pauses the department and alerts you.
+   - This affects your subscription limits, not the $10 API cap.
+3. **Prompt caching in Jarvis's Anthropic provider.** Cache the system prompt and memory block. This is the cheapest way to stay under $10, and the cache-hit figure shows the effect.
+4. **Tighter routing under the $10 cap.** Log why each request went to Opus, and review it weekly. Where Haiku would have been good enough, change the routing rules.
 5. **Approval gate for anything public.** Social Publisher, Email Campaign Manager and the X and Reddit agents queue posts for your OK instead of publishing them directly.
 6. **Reach the desktop from your phone.** Use Chrome Remote Desktop or Tailscale, plus the Mission Control page on your phone, so a stuck session is a 1-minute fix instead of a wait until you're home.
 7. **Router regression tests.** Keep about 30 sample prompts with the tier each should get, so changes to the router don't quietly move work onto Opus.

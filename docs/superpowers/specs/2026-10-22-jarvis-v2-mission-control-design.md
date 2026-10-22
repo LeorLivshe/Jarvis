@@ -12,7 +12,7 @@ Add one web page, served by Jarvis, that shows the whole system at a glance:
 1. **System map.** The Jarvis components and the data each one reads and writes. This part was already approved.
 2. **Agent org chart.** Which agents oversee which, grouped into departments.
 3. **Live state.** For every agent and department: what state it's in, what task it's doing now, and which model it's using.
-4. **Token tracker.** Tokens and spend over time, broken down by model, agent and department.
+4. **API cost tracker.** What Jarvis spends through your Anthropic API key, against a $10 monthly cap. Your Claude subscription (Claude Code and the agents) is never counted.
 5. **Alerts.** Anything stalled, failing or close to its budget, so you hear about a session like the 2026-10-22 hang without having to check.
 
 It opens from the tray ("Open Mission Control") and from your phone at `http://<pc>:<port>/workspace`. It uses the existing access key.
@@ -57,7 +57,6 @@ name = "Strategy & Growth"
 lead = "Social Media Strategist"
 reports_to = "Campaign Orchestrator"
 members = ["Growth Hacker", "Analytics Reporter"]
-budget_usd_month = 5.0          # optional; feeds the budget bars and alerts
 ```
 
 - **Loader check:** every name must match an agent file, and there must be no cycles. Anything left unassigned goes in an "Unassigned" box, so a new agent never disappears from the chart.
@@ -90,27 +89,32 @@ budget_usd_month = 5.0          # optional; feeds the budget bars and alerts
 
 Using a file instead of HTTP means the hook still works when Jarvis is off. Jarvis picks up the backlog when it starts.
 
-## 5. Token tracker
+## 5. API cost tracker
 
-**Sources**, read incrementally into a new table `token_usage` in `jarvis.db`. Byte offsets per file are stored so each file is only read once.
+**Scope:** only calls made with Jarvis's Anthropic API key, which are its Haiku (writing) and Opus (hard questions) tiers.
+- Claude Code and all 14 agents run on your Claude subscription. They're **not tracked for cost**.
+- Qwen runs locally and is free, so it isn't counted either.
 
-| Source | What it gives |
-|---|---|
-| `usage.jsonl` (Jarvis) | per request: tier, model, cost |
-| `%USERPROFILE%\.claude\projects\**\*.jsonl` (Claude Code transcripts) | per assistant message: `model` and `usage` (input, output, cache read, cache write); subagent ("sidechain") messages link back to the agent |
+**Source:** `usage.jsonl`. The Anthropic provider writes one line per API call:
+- time, tier and model;
+- `input_tokens`, `output_tokens`, `cache_creation_input_tokens` and `cache_read_input_tokens`, taken from the API response's `usage` field;
+- the cost calculated from `pricing.toml`.
+
+The workspace reads the file incrementally into a `api_usage` table in `jarvis.db`, storing its byte offset so each line is read only once.
 
 **Views:**
-- **Totals:** today, 7 days and month to date, in tokens and dollars, with a budget bar against the **$10** monthly cap.
-- **Two kinds of usage, kept apart:**
-  - **Jarvis API spend** (Jarvis's own Anthropic key) is real money and counts against the $10 cap.
-  - **Claude Code usage** runs on your Claude plan. It's shown as tokens, plus an API-equivalent dollar figure for comparison only, and never counts against the $10.
-- **Default department split of the $10:** Marketing Command $2.50, Creative Studio $2.50, Strategy & Growth $2.00, Channels & Publishing $1.50, Jarvis voice and chat $1.50.
-- **Stacked area chart:** tokens per day by model.
-- **Bars:** spend by department and by agent. You can open any one and see its runs.
-- **Cache hit rate:** cache reads divided by total input. A low rate tells you where prompt caching is missing.
-- **Rolling 5-hour window:** an estimate of tokens used. Plan limits aren't available locally, so it's labelled as an estimate.
+- **Spend this month against the $10 cap**, plus today's spend and the request count.
+- **Spend by model:** Haiku and Opus.
+- **Cache hit rate:** cache reads divided by all API input tokens. It shows whether prompt caching is working.
+- **Recent API calls:** time, request, model, input and output tokens, cost.
 
-**Prices:** a `pricing.toml` table holds price per million tokens for each model, so you can update it without changing code. It covers Qwen ($0) and the Anthropic models you use.
+**Cap:**
+- **$8 (80%):** warning in the HUD, the tray and the page.
+- **$10:** the router stops using Opus. Haiku and Qwen keep working until the 1st of the month.
+
+**Prices:** `pricing.toml` holds the price per million tokens for each Anthropic model you use: input, output, cache write and cache read. You can update it without changing code.
+
+**Optional check:** if you add an Anthropic Admin API key, a daily job can compare Jarvis's total against the cost report in your Anthropic Console and flag any difference.
 
 ## 6. Alerts
 
@@ -118,7 +122,7 @@ Alerts show on the page and as a tray balloon, with optional phone push via ntfy
 
 - An agent is stalled for more than N minutes. This is the 2026-10-22 case: a browser screenshot call hung for more than 5 minutes.
 - An agent is waiting on you for more than N minutes.
-- A department or the whole system reaches 80% of its monthly budget.
+- API spend reaches $8 (80% of the $10 cap), and again at $10.
 - The Remote Control host or Ollama can't be reached.
 
 ## 7. Page layout
@@ -146,4 +150,5 @@ A clickable mockup is published alongside this spec.
 - Starting, stopping or re-assigning agents from the page.
 - Editing config.
 - Push updates (SSE).
-- History beyond what's stored in `token_usage`.
+- History beyond what's stored in `api_usage`.
+- Cost tracking for Claude Code or the agents (they run on your subscription).

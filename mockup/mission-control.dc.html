@@ -23,15 +23,11 @@ a{color:#8CCBFF}a:hover{color:#C2E2FF}
 <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
 <div style="display: flex; flex-direction: column; gap: 2px">
 <h1 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em">Jarvis Mission Control</h1>
-<div style="font-size: 12px; color: #A3AEBD">Usage: real numbers from today's Claude sessions (Oct 22) · Agent states: sample until the hook is installed</div>
+<div style="font-size: 12px; color: #A3AEBD">Cost: Anthropic API key only, not your Claude subscription · Agent states: sample until the hook is installed</div>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 8px">
 <div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #121821; border: 1px solid #243042; border-radius: 10px">
-<span style="font-size: 12px; color: #A3AEBD">Claude today</span>
-<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500">13.16M tok</span>
-</div>
-<div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #121821; border: 1px solid #243042; border-radius: 10px">
-<span style="font-size: 12px; color: #A3AEBD">Jarvis API</span>
+<span style="font-size: 12px; color: #A3AEBD">API this month</span>
 <span style="font-family: 'JetBrains Mono', monospace; font-weight: 500">$- / $10</span>
 </div>
 <div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #2A1A10; border: 1px solid #5C3418; border-radius: 10px; color: #FFB27A">
@@ -89,10 +85,6 @@ a{color:#8CCBFF}a:hover{color:#C2E2FF}
 <h2 style="margin: 0; font-size: 14px; font-weight: 700">{{dept.name}}</h2>
 <span style="font-size: 12px; font-weight: 600; color: {{dept.rollupColor}}">{{dept.rollup}}</span>
 </div>
-<div style="display: flex; flex-direction: column; gap: 4px">
-<div style="display: flex; justify-content: space-between; font-size: 11px; color: #A3AEBD"><span>Budget</span><span style="font-family: 'JetBrains Mono', monospace">{{dept.spend}}</span></div>
-<div style="height: 6px; border-radius: 3px; background: #1E2733; overflow: hidden"><div style="height: 6px; width: {{dept.pct}}; background: {{dept.barColor}}"></div></div>
-</div>
 <sc-for list="{{dept.members}}" as="a" hint-placeholder-count="4">
 <button type="button" onClick="{{a.pick}}" style="text-align: left; padding: 10px 12px; min-height: 44px; background: #121821; border: 1px solid {{a.ring}}; border-radius: 10px; color: #E7ECF2; display: flex; flex-direction: column; gap: 4px">
 <div style="display: flex; justify-content: space-between; gap: 6px; align-items: center">
@@ -132,10 +124,7 @@ a{color:#8CCBFF}a:hover{color:#C2E2FF}
 </div>
 <div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: #0F141B; border-radius: 10px"><span style="width: 10px; height: 10px; border-radius: 50%; background: {{sel.dot}}"></span><span style="font-weight: 600; color: {{sel.dot}}">{{sel.stateLabel}}</span><span style="color: #A3AEBD; font-size: 12px">{{sel.elapsed}}</span></div>
 <div style="display: flex; flex-direction: column; gap: 2px"><div style="font-size: 12px; color: #A3AEBD">Current task</div><div style="font-weight: 500">{{sel.taskFull}}</div></div>
-<div style="display: flex; gap: 8px">
-<div style="flex: 1 1 0; padding: 10px; background: #0F141B; border-radius: 10px"><div style="font-size: 11px; color: #A3AEBD">This run</div><div style="font-family: 'JetBrains Mono', monospace; font-weight: 500">{{sel.tokens}}</div></div>
-<div style="flex: 1 1 0; padding: 10px; background: #0F141B; border-radius: 10px"><div style="font-size: 11px; color: #A3AEBD">Month</div><div style="font-family: 'JetBrains Mono', monospace; font-weight: 500">{{sel.month}}</div></div>
-</div>
+<div style="padding: 10px; background: #0F141B; border-radius: 10px"><div style="font-size: 11px; color: #A3AEBD">API cost</div><div style="font-weight: 500">{{sel.billing}}</div></div>
 <div style="display: flex; flex-direction: column; gap: 6px">
 <div style="font-size: 12px; color: #A3AEBD">Reports to</div><div>{{sel.reportsTo}}</div>
 </div>
@@ -164,51 +153,37 @@ a{color:#8CCBFF}a:hover{color:#C2E2FF}
 
 <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
 <section style="flex: 999 1 520px; min-width: 0; padding: 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 12px">
-<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><h2 style="margin: 0; font-size: 15px; font-weight: 700">Today, by session</h2><span style="font-size: 12px; color: #A3AEBD">Oct 22 · all on Opus 5.5</span></div>
-<sc-for list="{{sessions}}" as="s" hint-placeholder-count="2">
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><h2 style="margin: 0; font-size: 15px; font-weight: 700">API spend by model</h2><span style="font-size: 12px; color: #A3AEBD">this month · Anthropic API key</span></div>
+<sc-for list="{{models}}" as="m" hint-placeholder-count="2">
 <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 0; border-top: 1px solid #1E2733">
-<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><span style="font-weight: 600">{{s.name}}</span><span style="font-family: 'JetBrains Mono', monospace">{{s.total}}</span></div>
-<div role="img" aria-label="{{s.aria}}" style="display: flex; height: 12px; width: {{s.width}}; border-radius: 3px; overflow: hidden; gap: 1px">
-<sc-for list="{{s.segs}}" as="g" hint-placeholder-count="4">
-<div style="flex: none; height: 12px; width: {{g.w}}; background: {{g.color}}"></div>
-</sc-for>
-</div>
-<div style="display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: #A3AEBD">
-<sc-for list="{{s.segs}}" as="g" hint-placeholder-count="4">
-<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: {{g.color}}"></span>{{g.label}} <span style="font-family: 'JetBrains Mono', monospace; color: #E7ECF2">{{g.v}}</span></span>
-</sc-for>
-</div>
-<div style="font-size: 12px; color: #A3AEBD">{{s.note}}</div>
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><span style="font-weight: 600">{{m.name}}</span><span style="font-family: 'JetBrains Mono', monospace">{{m.spend}}</span></div>
+<div style="height: 8px; border-radius: 4px; background: #1E2733"></div>
+<div style="font-size: 12px; color: #A3AEBD">{{m.note}}</div>
 </div>
 </sc-for>
-<div style="font-size: 12px; color: #A3AEBD">Day-by-day history starts once Jarvis begins reading Claude Code's session logs (Phase 4 of the plan).</div>
+<div style="padding: 12px; border-radius: 10px; background: #0F141B; font-size: 13px; color: #A3AEBD">No API calls recorded yet. Jarvis writes one line to usage.jsonl per Anthropic API call, with the input, output and cache tokens from the API's response and the cost. This chart fills in from that file.</div>
 </section>
 
 <section style="flex: 1 1 300px; min-width: 0; padding: 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 12px">
-<h2 style="margin: 0; font-size: 15px; font-weight: 700">Jarvis API budget: $10 / month</h2>
+<h2 style="margin: 0; font-size: 15px; font-weight: 700">$10 monthly API budget</h2>
 <sc-for list="{{deptSpend}}" as="ds" hint-placeholder-count="5">
 <div style="display: flex; flex-direction: column; gap: 4px">
 <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span>{{ds.name}}</span><span style="font-family: 'JetBrains Mono', monospace">{{ds.spend}}</span></div>
 <div style="height: 8px; border-radius: 4px; background: #1E2733; overflow: hidden"><div style="height: 8px; width: {{ds.pct}}; background: {{ds.color}}"></div></div>
 </div>
 </sc-for>
-<div style="font-size: 12px; color: #A3AEBD">The $10 is split across departments. No spend recorded yet: these fill in from usage.jsonl and the agent hook. A bar turns amber at 80%.</div>
+<div style="font-size: 12px; color: #A3AEBD">Your Claude subscription (Claude Code and all 14 agents) is never counted here.</div>
 </section>
 </div>
 
 <section style="padding: 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 10px">
-<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><h2 style="margin: 0; font-size: 15px; font-weight: 700">Who used tokens today</h2><span style="font-size: 12px; color: #A3AEBD">tokens · API-equivalent cost · cache hit</span></div>
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><h2 style="margin: 0; font-size: 15px; font-weight: 700">Recent API calls</h2><span style="font-size: 12px; color: #A3AEBD">newest first</span></div>
 <div style="overflow-x: auto">
-<div style="min-width: 520px; display: flex; flex-direction: column">
-<sc-for list="{{topAgents}}" as="t" hint-placeholder-count="6">
-<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 80px 70px 60px; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid #1E2733; font-size: 13px">
-<span style="font-weight: 600">{{t.name}}</span>
-<div style="height: 8px; border-radius: 4px; background: #1E2733; overflow: hidden"><div style="height: 8px; width: {{t.pct}}; background: {{t.color}}"></div></div>
-<span style="font-family: 'JetBrains Mono', monospace; text-align: right">{{t.tok}}</span>
-<span style="font-family: 'JetBrains Mono', monospace; text-align: right">{{t.cost}}</span>
-<span style="font-family: 'JetBrains Mono', monospace; text-align: right; color: #A3AEBD">{{t.cache}}</span>
+<div style="min-width: 560px; display: flex; flex-direction: column">
+<div style="display: grid; grid-template-columns: 90px minmax(0, 1fr) 90px 90px 90px 70px; gap: 12px; padding: 8px 0; font-size: 12px; color: #A3AEBD">
+<span>Time</span><span>Request</span><span>Model</span><span style="text-align: right">Input</span><span style="text-align: right">Output</span><span style="text-align: right">Cost</span>
 </div>
-</sc-for>
+<div style="padding: 16px 0; border-top: 1px solid #1E2733; font-size: 13px; color: #A3AEBD">Nothing yet. Rows appear here as Jarvis sends requests to Haiku or Opus.</div>
 </div>
 </div>
 </section>
@@ -284,8 +259,9 @@ class Component extends DCLogic {
       var mc = MODELS[r[2]];
       var a = {
         name: r[0], dept: r[1], model: r[2], state: r[3], stateLabel: st.label, dot: st.color, rank: st.rank,
-        task: r[4], taskFull: r[4], elapsed: r[5] || '', tokens: 'Not tracked yet', month: 'Not tracked yet',
-        reportsTo: r[8], recent: r[9].map(function (x) { return { t: x[0], tok: x[1] }; }),
+        task: r[4], taskFull: r[4], elapsed: r[5] || '',
+        billing: r[0] === 'Jarvis' ? 'Haiku and Opus tiers use your API key: $- of $10 this month' : 'Runs on your Claude subscription, so it isn’t counted',
+        reportsTo: r[8], recent: r[9].map(function (x) { return { t: x[0], tok: '' }; }),
         modelBg: mc.bg, modelFg: mc.fg, isLead: !!leads[r[0]],
         ring: self.state.selected === r[0] ? '#8CCBFF' : '#243042',
         pick: function () { self.setState({ selected: r[0] }); }
@@ -326,54 +302,22 @@ class Component extends DCLogic {
       };
     });
 
-    // Real usage for Oct 22, from the two Claude sessions' own counters.
-    var fmt = function (n) {
-      if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
-      if (n >= 1e3) return (n / 1e3).toFixed(1) + 'k';
-      return String(n);
-    };
-    var PARTS = [
-      ['Cache read', '#3B82F6'], ['Cache write', '#B794F6'], ['Output', '#5EEAD4'], ['Fresh input', '#F5B544']
+    // Only Jarvis's own Anthropic API key is costed; no data until usage.jsonl is connected.
+    var models = [
+      { name: 'Claude Haiku (writing tier)', spend: '$-', note: 'Every request Jarvis routes to Haiku' },
+      { name: 'Claude Opus (hard-question tier)', spend: '$-', note: 'Every request Jarvis routes to Opus' }
     ];
-    var sessionData = [
-      ['This chat (cloud, from your phone)', [10674578, 205349, 61333, 4842], '$5.02 API-equivalent, covered by your Claude plan'],
-      ['Claude RC (desktop, offline since 16:48)', [2117826, 83534, 9076, 40], 'Cost not reported by the desktop session']
-    ];
-    var maxTotal = 10946102;
-    var sessions = sessionData.map(function (s) {
-      var total = s[1].reduce(function (a, b) { return a + b; }, 0);
-      return {
-        name: s[0], total: fmt(total) + ' tok', note: s[2],
-        width: (total / maxTotal * 100).toFixed(1) + '%',
-        aria: s[0] + ': ' + fmt(total) + ' tokens, mostly cache reads',
-        segs: PARTS.map(function (p, i) {
-          var w = s[1][i] / total * 100;
-          return { label: p[0], color: p[1], v: fmt(s[1][i]), w: (w < 0.6 && s[1][i] > 0 ? 0.6 : w).toFixed(2) + '%' };
-        })
-      };
-    });
 
     var deptSpend = [
-      ['Marketing Command', 0, 2.5], ['Creative Studio', 0, 2.5], ['Strategy & Growth', 0, 2],
-      ['Channels & Publishing', 0, 1.5], ['Jarvis voice + chat', 0, 1.5]
-    ].map(function (d) {
-      var p = Math.round(d[1] / d[2] * 100);
-      return { name: d[0], spend: '$' + d[1].toFixed(2) + ' / $' + d[2].toFixed(2), pct: p + '%', color: p >= 80 ? '#F5B544' : '#4C9AFF' };
-    });
-
-    var topAgents = [
-      ['Main agent, this chat', 10946102, '$5.02', '98.1%'],
-      ['Main agent, Claude RC', 2210476, 'n/a', '96.2%'],
-      ['Subagents (all 14)', 0, '$0.00', '-']
-    ].map(function (t) {
-      return { name: t[0], tok: fmt(t[1]), cost: t[2], cache: t[3], pct: (t[1] / maxTotal * 100).toFixed(1) + '%', color: '#B794F6' };
-    });
+      { name: 'Warning at 80%', spend: '$8.00', pct: '80%', color: '#F5B544' },
+      { name: 'Opus paused at 100%: Haiku and Qwen keep working', spend: '$10.00', pct: '100%', color: '#FF6B6B' }
+    ];
 
     var kpis = [
-      { label: 'Claude tokens today', value: '13.16M', hasBar: false, note: '2 sessions · Opus 5.5 · 70.4k output tokens' },
-      { label: 'Jarvis API spend (month)', value: '$- / $10', hasBar: false, note: 'Reads usage.jsonl once you’re home · alert at $8' },
-      { label: 'Cache hit rate', value: '97.8%', hasBar: true, pct: '97.8%', color: '#3DD68C', note: '12.79M of 13.09M input tokens came from cache' },
-      { label: '5-hour window', value: 'Allowed', hasBar: false, note: 'Not rate-limited · resets 21:20 UTC · exact % isn’t exposed' }
+      { label: 'API spend this month', value: '$- / $10', hasBar: false, note: 'Anthropic API key only · fills in from usage.jsonl' },
+      { label: 'API spend today', value: '$-', hasBar: false, note: 'Haiku and Opus calls made by Jarvis' },
+      { label: 'API requests this month', value: '-', hasBar: false, note: 'Qwen runs locally and is free, so it isn’t counted' },
+      { label: 'Cache hit rate', value: '-', hasBar: false, note: 'Cache reads ÷ all API input tokens' }
     ];
 
     var G = '#3DD68C', A = '#F5B544', I = '#8A96A6';
@@ -399,7 +343,7 @@ class Component extends DCLogic {
       helpers: agents.filter(function (a) { return a.dept === 'Shared helpers'; }),
       sel: byName[this.state.selected] || byName['Jarvis'],
       legend: legend,
-      kpis: kpis, sessions: sessions, deptSpend: deptSpend, topAgents: topAgents, layers: layers
+      kpis: kpis, models: models, deptSpend: deptSpend, layers: layers
     };
   }
 }
