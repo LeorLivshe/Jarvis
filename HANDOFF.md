@@ -30,13 +30,14 @@ The script below confirms which of these happened.
    - Copy `docs\superpowers\specs\...` and `docs\superpowers\plans\...` into the same folders under `Desktop\Claude\docs\superpowers\`.
    - Copy `hooks\` into `Desktop\Claude\jarvis\hooks\`.
    - Then tell Claude: "Execute the Mission Control plan starting at Phase 0."
+6. **Tidy up.** Delete the leftover branch `claude/remote-control-session-closure-dgt6ji` from the `cv` repo: `git push origin --delete claude/remote-control-session-closure-dgt6ji`, or use the trash icon at github.com/LeorLivshe/cv/branches.
 
 ## Files
 
 | File | What it is |
 |---|---|
 | `scripts/Fix-RemoteControl.ps1` | Diagnoses the disconnect, then sets: no sleep, network adapters stay powered, no surprise Windows Update restarts, QuickEdit off. `-RegisterRemoteControlTask` is optional. |
-| `docs/superpowers/specs/2026-10-22-jarvis-v2-mission-control-design.md` | Design spec: org chart, live agent state, token tracker, alerts |
+| `docs/superpowers/specs/2026-10-22-jarvis-v2-mission-control-design.md` | Design spec: org chart, live agent state, API cost tracker ($10 cap, API key only), alerts |
 | `docs/superpowers/plans/2026-10-22-jarvis-v2-mission-control-plan.md` | Phased build plan and the ranked improvement list |
 | `hooks/jarvis_agent_hook.py` | Claude Code hook that logs agent activity for the dashboard (tested) |
 | Mockup | https://claude.ai/artifact/1wf6LpPG92pUZNg5zCwycK (clickable; sample data) |
