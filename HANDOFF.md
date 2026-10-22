@@ -26,10 +26,7 @@ The script below confirms which of these happened.
    Read `RemoteControl-Diagnosis.txt` on your Desktop.
 3. **Set up remote access.** Finish Chrome Remote Desktop setup (the script opens the page). Then a hang while you're out is fixable from your phone.
 4. **Make the desktop app start with Windows.** In the Claude desktop app, turn on launch at login.
-5. **Start building Jarvis v2.**
-   - Copy `docs\superpowers\specs\...` and `docs\superpowers\plans\...` into the same folders under `Desktop\Claude\docs\superpowers\`.
-   - Copy `hooks\` into `Desktop\Claude\jarvis\hooks\`.
-   - Then tell Claude: "Execute the Mission Control plan starting at Phase 0."
+5. **Start a Claude Code session in the cloned `Jarvis` folder** and paste the prompt below. It reads `CLAUDE.md` and works through the upgrades, then Mission Control, in order. It will hand you the `/plugin` commands to type yourself.
 6. **Tidy up.** Delete the leftover branch `claude/remote-control-session-closure-dgt6ji` from the `cv` repo: `git push origin --delete claude/remote-control-session-closure-dgt6ji`, or use the trash icon at github.com/LeorLivshe/cv/branches.
 
 ## Files
@@ -43,14 +40,17 @@ The script below confirms which of these happened.
 | Mockup | https://claude.ai/artifact/1wf6LpPG92pUZNg5zCwycK (clickable; sample data) |
 | `hooks/settings-snippet.json` | Hook configuration to merge into `%USERPROFILE%\.claude\settings.json` |
 
-## Bring the app code into this repo (optional, recommended)
+## Prompt to paste into the desktop session
 
-The Jarvis source currently lives only on the desktop. To keep it backed up here, from `Desktop\Claude\jarvis` (it already has a `.gitignore`, so check `.env` is listed in it before you run this):
-
-```powershell
-git status --ignored    # confirm .env, data\, models\, dist\ and build\ show as ignored
-git remote add origin https://github.com/LeorLivshe/Jarvis
-git fetch origin
-git merge origin/main --allow-unrelated-histories
-git push -u origin HEAD:main
 ```
+Read CLAUDE.md, HANDOFF.md and docs/setup/setup-guide.md. I've done HANDOFF steps 1-4.
+Walk me through setup-guide Part A in order: give me any /plugin or other slash
+commands to type in one block, run the terminal steps yourself, and show me agent-file
+edits before making them. Tick items off in docs/setup/desktop-upgrades.md as we go.
+Then ask me before backing up the app code (CLAUDE.md task 3), and after that
+execute the Mission Control plan starting at Phase 0.
+```
+
+## Bring the app code into this repo
+
+The Jarvis source currently lives only on the desktop. The desktop session handles this (CLAUDE.md task 3): it puts the code under `app/` after checking that `.env`, `data\`, `models\`, `dist\` and `build\` are git-ignored.

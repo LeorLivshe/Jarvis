@@ -1,0 +1,24 @@
+# Secrets
+.env
+.env.*
+*.key
+
+# Jarvis runtime data (app code goes under app/)
+app/data/
+app/models/
+app/voice_samples/
+app/dist/
+app/build/
+*.db
+*.log
+*.jsonl
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# Node
+node_modules/
