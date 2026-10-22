@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jarvis Mission Control</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#0B0F14}
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid #8CCBFF;outline-offset:2px}
+a{color:#8CCBFF}a:hover{color:#C2E2FF}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #0B0F14; color: #E7ECF2; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.45">
+<div style="max-width: 1280px; margin: 0 auto; padding: 24px 20px 48px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h1 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em">Jarvis Mission Control</h1>
+<div style="font-size: 12px; color: #A3AEBD">Mockup with sample data · refreshes every 3 s in the real build</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #121821; border: 1px solid #243042; border-radius: 10px">
+<span style="font-size: 12px; color: #A3AEBD">Today</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500">$1.42</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #121821; border: 1px solid #243042; border-radius: 10px">
+<span style="font-size: 12px; color: #A3AEBD">Month</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500">$11.80 / $20</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #2A1A10; border: 1px solid #5C3418; border-radius: 10px; color: #FFB27A">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>
+<span style="font-weight: 600">2 alerts</span>
+</div>
+</div>
+</header>
+
+<div role="status" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; background: #1A130D; border: 1px solid #5C3418; border-radius: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline">
+<span style="font-weight: 600; color: #FFB27A">Stalled 6 min</span>
+<span>Instagram Curator: browser screenshot hasn't returned. This is the same pattern that dropped the Remote Control session on Oct 22.</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline">
+<span style="font-weight: 600; color: #F5B544">Waiting 9 min</span>
+<span>Content Creator needs you to approve 3 caption options.</span>
+</div>
+</div>
+
+<nav aria-label="Views" style="display: flex; flex-wrap: wrap; gap: 6px; border-bottom: 1px solid #243042; padding-bottom: 8px">
+<sc-for list="{{tabs}}" as="tab" hint-placeholder-count="3">
+<button type="button" onClick="{{tab.pick}}" aria-pressed="{{tab.pressed}}" style="min-height: 44px; padding: 8px 16px; border-radius: 10px; border: 1px solid {{tab.border}}; background: {{tab.bg}}; color: {{tab.fg}}; font-weight: 600">{{tab.label}}</button>
+</sc-for>
+</nav>
+
+<sc-if value="{{isAgents}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+<div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; align-items: stretch; gap: 0">
+
+<div style="display: flex; justify-content: center">
+<button type="button" onClick="{{jarvis.pick}}" style="width: 100%; max-width: 440px; text-align: left; padding: 14px 16px; background: #121821; border: 1px solid {{jarvis.ring}}; border-radius: 14px; color: #E7ECF2; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; justify-content: space-between; gap: 8px; align-items: center">
+<span style="font-size: 16px; font-weight: 700">Jarvis</span>
+<span style="font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: {{jarvis.modelBg}}; color: {{jarvis.modelFg}}">{{jarvis.model}}</span>
+</div>
+<div style="display: flex; align-items: center; gap: 6px; font-size: 12px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{jarvis.dot}}"></span><span style="color: {{jarvis.dot}}; font-weight: 600">{{jarvis.stateLabel}}</span><span style="color: #A3AEBD">{{jarvis.task}}</span></div>
+<div style="font-size: 12px; color: #A3AEBD">Routes each request to Qwen (local), Haiku or Opus</div>
+</button>
+</div>
+<div aria-hidden="true" style="align-self: center; width: 2px; height: 20px; background: #243042"></div>
+
+<div style="display: flex; justify-content: center">
+<button type="button" onClick="{{orch.pick}}" style="width: 100%; max-width: 440px; text-align: left; padding: 12px 16px; background: #121821; border: 1px solid {{orch.ring}}; border-radius: 14px; color: #E7ECF2; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #A3AEBD">Marketing Command</div>
+<div style="display: flex; justify-content: space-between; gap: 8px; align-items: center">
+<span style="font-size: 15px; font-weight: 700">{{orch.name}}</span>
+<span style="font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: {{orch.modelBg}}; color: {{orch.modelFg}}">{{orch.model}}</span>
+</div>
+<div style="display: flex; align-items: center; gap: 6px; font-size: 12px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{orch.dot}}"></span><span style="color: {{orch.dot}}; font-weight: 600">{{orch.stateLabel}}</span><span style="color: #A3AEBD">{{orch.task}}</span></div>
+</button>
+</div>
+<div aria-hidden="true" style="align-self: center; width: 2px; height: 20px; background: #243042"></div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 12px; border-top: 2px solid #243042; padding-top: 16px">
+<sc-for list="{{depts}}" as="dept" hint-placeholder-count="3">
+<section style="flex: 1 1 240px; min-width: 0; background: #0F141B; border: 1px solid #243042; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap">
+<h2 style="margin: 0; font-size: 14px; font-weight: 700">{{dept.name}}</h2>
+<span style="font-size: 12px; font-weight: 600; color: {{dept.rollupColor}}">{{dept.rollup}}</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; justify-content: space-between; font-size: 11px; color: #A3AEBD"><span>Budget</span><span style="font-family: 'JetBrains Mono', monospace">{{dept.spend}}</span></div>
+<div style="height: 6px; border-radius: 3px; background: #1E2733; overflow: hidden"><div style="height: 6px; width: {{dept.pct}}; background: {{dept.barColor}}"></div></div>
+</div>
+<sc-for list="{{dept.members}}" as="a" hint-placeholder-count="4">
+<button type="button" onClick="{{a.pick}}" style="text-align: left; padding: 10px 12px; min-height: 44px; background: #121821; border: 1px solid {{a.ring}}; border-radius: 10px; color: #E7ECF2; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; justify-content: space-between; gap: 6px; align-items: center">
+<span style="font-weight: 600; font-size: 13px">{{a.name}}<sc-if value="{{a.isLead}}" hint-placeholder-val="{{false}}"><span style="font-size: 11px; font-weight: 500; color: #A3AEBD"> · lead</span></sc-if></span>
+<span style="font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 999px; background: {{a.modelBg}}; color: {{a.modelFg}}; white-space: nowrap">{{a.model}}</span>
+</div>
+<div style="display: flex; align-items: center; gap: 6px; font-size: 12px; min-width: 0"><span style="flex: none; width: 8px; height: 8px; border-radius: 50%; background: {{a.dot}}"></span><span style="flex: none; color: {{a.dot}}; font-weight: 600">{{a.stateLabel}}</span><span style="color: #A3AEBD; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{a.task}}</span></div>
+</button>
+</sc-for>
+</section>
+</sc-for>
+</div>
+
+<section style="margin-top: 16px; background: #0F141B; border: 1px dashed #243042; border-radius: 14px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap"><h2 style="margin: 0; font-size: 14px; font-weight: 700">Shared helpers</h2><span style="font-size: 12px; color: #A3AEBD">Any agent can call these</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<sc-for list="{{helpers}}" as="a" hint-placeholder-count="3">
+<button type="button" onClick="{{a.pick}}" style="flex: 1 1 180px; text-align: left; padding: 10px 12px; min-height: 44px; background: #121821; border: 1px solid {{a.ring}}; border-radius: 10px; color: #E7ECF2; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; justify-content: space-between; gap: 6px"><span style="font-weight: 600; font-size: 13px">{{a.name}}</span><span style="font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 999px; background: {{a.modelBg}}; color: {{a.modelFg}}">{{a.model}}</span></div>
+<div style="display: flex; align-items: center; gap: 6px; font-size: 12px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{a.dot}}"></span><span style="color: {{a.dot}}; font-weight: 600">{{a.stateLabel}}</span><span style="color: #A3AEBD">{{a.task}}</span></div>
+</button>
+</sc-for>
+</div>
+</section>
+
+<div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: #A3AEBD">
+<sc-for list="{{legend}}" as="l" hint-placeholder-count="6">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{l.color}}"></span>{{l.label}}</span>
+</sc-for>
+</div>
+</div>
+
+<aside aria-label="Selected agent" style="flex: 1 1 300px; min-width: 0; background: #121821; border: 1px solid #243042; border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #A3AEBD">{{sel.dept}}</div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px"><h2 style="margin: 0; font-size: 18px; font-weight: 700">{{sel.name}}</h2><span style="font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; background: {{sel.modelBg}}; color: {{sel.modelFg}}">{{sel.model}}</span></div>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: #0F141B; border-radius: 10px"><span style="width: 10px; height: 10px; border-radius: 50%; background: {{sel.dot}}"></span><span style="font-weight: 600; color: {{sel.dot}}">{{sel.stateLabel}}</span><span style="color: #A3AEBD; font-size: 12px">{{sel.elapsed}}</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><div style="font-size: 12px; color: #A3AEBD">Current task</div><div style="font-weight: 500">{{sel.taskFull}}</div></div>
+<div style="display: flex; gap: 8px">
+<div style="flex: 1 1 0; padding: 10px; background: #0F141B; border-radius: 10px"><div style="font-size: 11px; color: #A3AEBD">This run</div><div style="font-family: 'JetBrains Mono', monospace; font-weight: 500">{{sel.tokens}}</div></div>
+<div style="flex: 1 1 0; padding: 10px; background: #0F141B; border-radius: 10px"><div style="font-size: 11px; color: #A3AEBD">Month</div><div style="font-family: 'JetBrains Mono', monospace; font-weight: 500">{{sel.month}}</div></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 12px; color: #A3AEBD">Reports to</div><div>{{sel.reportsTo}}</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 12px; color: #A3AEBD">Recent tasks</div>
+<sc-for list="{{sel.recent}}" as="r" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 6px 0; border-top: 1px solid #1E2733"><span>{{r.t}}</span><span style="font-family: 'JetBrains Mono', monospace; color: #A3AEBD; white-space: nowrap">{{r.tok}}</span></div>
+</sc-for>
+</div>
+</aside>
+</div>
+</sc-if>
+
+<sc-if value="{{isUsage}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<sc-for list="{{kpis}}" as="k" hint-placeholder-count="4">
+<div style="flex: 1 1 200px; padding: 14px 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 6px">
+<div style="font-size: 12px; color: #A3AEBD">{{k.label}}</div>
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 500">{{k.value}}</div>
+<div style="height: 6px; border-radius: 3px; background: #1E2733; overflow: hidden"><div style="height: 6px; width: {{k.pct}}; background: {{k.color}}"></div></div>
+<div style="font-size: 12px; color: #A3AEBD">{{k.note}}</div>
+</div>
+</sc-for>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
+<section style="flex: 999 1 520px; min-width: 0; padding: 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><h2 style="margin: 0; font-size: 15px; font-weight: 700">Tokens per day, by model</h2><span style="font-size: 12px; color: #A3AEBD">last 7 days · thousands</span></div>
+<div role="img" aria-label="Stacked bars of tokens per day by model for the last 7 days" style="display: flex; align-items: flex-end; gap: 10px; height: 200px; padding-top: 8px; border-bottom: 1px solid #243042">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end">
+<div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #A3AEBD">{{d.total}}</div>
+<div style="width: 100%; max-width: 44px; display: flex; flex-direction: column; gap: 2px">
+<sc-for list="{{d.segs}}" as="s" hint-placeholder-count="4">
+<div style="height: {{s.h}}; background: {{s.color}}; border-radius: 3px"></div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; gap: 10px">
+<sc-for list="{{days}}" as="d" hint-placeholder-count="7">
+<div style="flex: 1 1 0; text-align: center; font-size: 12px; color: #A3AEBD">{{d.d}}</div>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: #A3AEBD">
+<sc-for list="{{modelLegend}}" as="m" hint-placeholder-count="4">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: {{m.color}}"></span>{{m.label}}</span>
+</sc-for>
+</div>
+</section>
+
+<section style="flex: 1 1 300px; min-width: 0; padding: 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 15px; font-weight: 700">Spend this month, by department</h2>
+<sc-for list="{{deptSpend}}" as="ds" hint-placeholder-count="5">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span>{{ds.name}}</span><span style="font-family: 'JetBrains Mono', monospace">{{ds.spend}}</span></div>
+<div style="height: 8px; border-radius: 4px; background: #1E2733; overflow: hidden"><div style="height: 8px; width: {{ds.pct}}; background: {{ds.color}}"></div></div>
+</div>
+</sc-for>
+<div style="font-size: 12px; color: #A3AEBD">Bars show each department's share of its own budget. Amber means 80% or more.</div>
+</section>
+</div>
+
+<section style="padding: 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><h2 style="margin: 0; font-size: 15px; font-weight: 700">Top agents this month</h2><span style="font-size: 12px; color: #A3AEBD">tokens · cost · cache hit</span></div>
+<div style="overflow-x: auto">
+<div style="min-width: 520px; display: flex; flex-direction: column">
+<sc-for list="{{topAgents}}" as="t" hint-placeholder-count="6">
+<div style="display: grid; grid-template-columns: 180px minmax(0, 1fr) 80px 70px 60px; gap: 12px; align-items: center; padding: 8px 0; border-top: 1px solid #1E2733; font-size: 13px">
+<span style="font-weight: 600">{{t.name}}</span>
+<div style="height: 8px; border-radius: 4px; background: #1E2733; overflow: hidden"><div style="height: 8px; width: {{t.pct}}; background: {{t.color}}"></div></div>
+<span style="font-family: 'JetBrains Mono', monospace; text-align: right">{{t.tok}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; text-align: right">{{t.cost}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; text-align: right; color: #A3AEBD">{{t.cache}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+</div>
+</sc-if>
+
+<sc-if value="{{isSystem}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 12px; color: #A3AEBD">The layered map approved on Oct 22. In the real build, lines show what depends on what.</div>
+<sc-for list="{{layers}}" as="layer" hint-placeholder-count="7">
+<div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: stretch; padding: 10px; border-radius: 12px; background: {{layer.bg}}; border: 1px solid #1E2733">
+<div style="flex: 0 0 110px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #A3AEBD; align-self: center">{{layer.name}}</div>
+<sc-for list="{{layer.nodes}}" as="n" hint-placeholder-count="3">
+<div style="flex: 1 1 150px; min-width: 0; padding: 10px 12px; background: #121821; border: 1px solid #243042; border-radius: 10px; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 50%; background: {{n.dot}}"></span><span style="font-weight: 600; font-size: 13px">{{n.name}}</span></div>
+<div style="font-size: 12px; color: #A3AEBD">{{n.note}}</div>
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1180}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tab: 'agents', selected: 'Instagram Curator' };
+  }
+
+  renderVals() {
+    var self = this;
+    var STATES = {
+      working: { label: 'Working', color: '#3DD68C', rank: 2 },
+      waiting: { label: 'Waiting on you', color: '#F5B544', rank: 3 },
+      stalled: { label: 'Stalled', color: '#FF8A3D', rank: 4 },
+      error:   { label: 'Error', color: '#FF6B6B', rank: 5 },
+      idle:    { label: 'Idle', color: '#8A96A6', rank: 1 }
+    };
+    var MODELS = {
+      Opus:   { bg: '#2A1F45', fg: '#CDB8FF' },
+      Sonnet: { bg: '#13304A', fg: '#9CD3FF' },
+      Haiku:  { bg: '#0F3A36', fg: '#7DEBDB' },
+      'Qwen (local)': { bg: '#2A2F37', fg: '#C9D0DA' }
+    };
+    var raw = [
+      ['Jarvis', 'Jarvis', 'Opus', 'idle', 'Listening for the hotkey', '', '0', '2.1M', 'You', [['Summarise inbox', '3.2k'], ['Weather + calendar', '0.9k'], ['Draft reply to Sam', '5.4k']]],
+      ['Campaign Orchestrator', 'Marketing Command', 'Opus', 'working', 'Plan the Q4 launch campaign', '12 min', '48.2k', '1.4M', 'Jarvis', [['Weekly campaign review', '61k'], ['Brief Creative Studio', '22k'], ['Assign channel posts', '14k']]],
+      ['Social Media Strategist', 'Strategy & Growth', 'Sonnet', 'working', 'Draft November content pillars', '4 min', '18.9k', '820k', 'Campaign Orchestrator', [['Audience research', '40k'], ['Competitor scan', '33k'], ['Hashtag set', '6k']]],
+      ['Growth Hacker', 'Strategy & Growth', 'Sonnet', 'idle', 'Last: A/B test ideas for bio link', '', '0', '310k', 'Social Media Strategist', [['A/B test ideas', '12k'], ['Referral loop sketch', '19k']]],
+      ['Analytics Reporter', 'Strategy & Growth', 'Haiku', 'working', 'Pull last week’s Instagram insights', '1 min', '6.1k', '240k', 'Social Media Strategist', [['Weekly report', '28k'], ['Reach dip check', '7k']]],
+      ['Content Creator', 'Creative Studio', 'Sonnet', 'waiting', 'Approve 3 caption options', '9 min', '22.7k', '960k', 'Campaign Orchestrator', [['Reel script', '31k'], ['Blog outline', '18k'], ['Captions batch', '24k']]],
+      ['Brand Designer', 'Creative Studio', 'Sonnet', 'idle', 'Last: refresh colour palette', '', '0', '410k', 'Content Creator', [['Palette refresh', '26k'], ['Logo lockups', '17k']]],
+      ['Canva Designer', 'Creative Studio', 'Sonnet', 'working', 'Carousel: 5 slides from the brand kit', '3 min', '11.4k', '530k', 'Content Creator', [['Story templates', '21k'], ['Quote cards', '9k']]],
+      ['Asset Manager', 'Creative Studio', 'Haiku', 'idle', 'Last: tag 40 new photos', '', '0', '95k', 'Content Creator', [['Tag photos', '8k'], ['Dedupe folder', '3k']]],
+      ['Social Publisher', 'Channels & Publishing', 'Haiku', 'idle', 'Queue empty', '', '0', '120k', 'Campaign Orchestrator', [['Publish 4 posts', '6k'], ['Cross-post reel', '3k']]],
+      ['Content Scheduler', 'Channels & Publishing', 'Haiku', 'idle', 'Next post Thu 09:00', '', '0', '70k', 'Social Publisher', [['Build weekly calendar', '9k']]],
+      ['Instagram Curator', 'Channels & Publishing', 'Sonnet', 'stalled', 'Review liked posts (browser)', '6 min, no events', '9.8k', '380k', 'Social Publisher', [['Save reference posts', '14k'], ['Comment replies', '11k']]],
+      ['Twitter/X Engager', 'Channels & Publishing', 'Haiku', 'idle', 'Last: replied to 12 mentions', '', '0', '150k', 'Social Publisher', [['Reply to mentions', '7k']]],
+      ['Reddit Community Builder', 'Channels & Publishing', 'Haiku', 'error', 'Post rejected: subreddit rules', '2 min ago', '3.3k', '88k', 'Social Publisher', [['Draft AMA intro', '5k']]],
+      ['Email Campaign Manager', 'Channels & Publishing', 'Sonnet', 'idle', 'Last: November newsletter draft', '', '0', '290k', 'Social Publisher', [['Newsletter draft', '27k'], ['Welcome sequence', '19k']]],
+      ['Explore', 'Shared helpers', 'Haiku', 'working', 'Find brand assets on disk', '30 s', '2.2k', '60k', 'Called by Canva Designer', [['Find templates', '2k']]],
+      ['general-purpose', 'Shared helpers', 'Sonnet', 'idle', 'Ready', '', '0', '140k', 'Any agent', [['Research task', '12k']]],
+      ['Plan', 'Shared helpers', 'Opus', 'idle', 'Ready', '', '0', '75k', 'Any agent', [['Plan campaign brief', '9k']]]
+    ];
+    var leads = { 'Social Media Strategist': 1, 'Content Creator': 1, 'Social Publisher': 1 };
+    var byName = {};
+    var agents = raw.map(function (r) {
+      var st = STATES[r[3]];
+      var mc = MODELS[r[2]];
+      var a = {
+        name: r[0], dept: r[1], model: r[2], state: r[3], stateLabel: st.label, dot: st.color, rank: st.rank,
+        task: r[4], taskFull: r[4], elapsed: r[5] || '', tokens: r[6] === '0' ? '-' : r[6] + ' tok', month: r[7] + ' tok',
+        reportsTo: r[8], recent: r[9].map(function (x) { return { t: x[0], tok: x[1] }; }),
+        modelBg: mc.bg, modelFg: mc.fg, isLead: !!leads[r[0]],
+        ring: self.state.selected === r[0] ? '#8CCBFF' : '#243042',
+        pick: function () { self.setState({ selected: r[0] }); }
+      };
+      byName[r[0]] = a;
+      return a;
+    });
+
+    var deptDefs = [
+      ['Strategy & Growth', 'Social Media Strategist', 2.4, 5],
+      ['Creative Studio', 'Content Creator', 4.2, 5],
+      ['Channels & Publishing', 'Social Publisher', 1.2, 4]
+    ];
+    var depts = deptDefs.map(function (d) {
+      var members = agents.filter(function (a) { return a.dept === d[0]; });
+      members.sort(function (x, y) { return (y.isLead ? 1 : 0) - (x.isLead ? 1 : 0); });
+      var worst = members.reduce(function (w, a) { return a.rank > w.rank ? a : w; }, members[0]);
+      var counts = {};
+      members.forEach(function (a) { if (a.state !== 'idle') counts[a.stateLabel] = (counts[a.stateLabel] || 0) + 1; });
+      var parts = Object.keys(counts).map(function (k) { return counts[k] + ' ' + k.toLowerCase(); });
+      var pct = Math.round(d[2] / d[3] * 100);
+      return {
+        name: d[0], members: members,
+        rollup: parts.length ? parts.join(' · ') : 'All idle',
+        rollupColor: parts.length ? worst.dot : '#A3AEBD',
+        spend: '$' + d[2].toFixed(2) + ' / $' + d[3],
+        pct: pct + '%', barColor: pct >= 80 ? '#F5B544' : '#4C9AFF'
+      };
+    });
+
+    var tabDefs = [['agents', 'Agents'], ['usage', 'Usage'], ['system', 'System']];
+    var tabs = tabDefs.map(function (t) {
+      var on = self.state.tab === t[0];
+      return {
+        label: t[1], pressed: on ? 'true' : 'false',
+        bg: on ? '#1B2A3D' : 'transparent', fg: on ? '#E7ECF2' : '#A3AEBD', border: on ? '#3B5A80' : '#243042',
+        pick: function () { self.setState({ tab: t[0] }); }
+      };
+    });
+
+    var MCOL = { Opus: '#B794F6', Sonnet: '#3B82F6', Haiku: '#5EEAD4', 'Qwen (local)': '#64748B' };
+    var dayData = [
+      ['Thu', 120, 210, 90, 40], ['Fri', 80, 180, 110, 35], ['Sat', 40, 90, 60, 20], ['Sun', 30, 60, 40, 25],
+      ['Mon', 150, 260, 130, 50], ['Tue', 170, 300, 150, 45], ['Wed', 95, 240, 120, 30]
+    ];
+    var order = ['Opus', 'Sonnet', 'Haiku', 'Qwen (local)'];
+    var days = dayData.map(function (d) {
+      var total = d[1] + d[2] + d[3] + d[4];
+      return {
+        d: d[0], total: total + 'k',
+        segs: order.map(function (m, i) { return { h: Math.round(d[i + 1] / 700 * 170) + 'px', color: MCOL[m] }; })
+      };
+    });
+
+    var deptSpend = [
+      ['Marketing Command', 3.1, 6], ['Creative Studio', 4.2, 5], ['Strategy & Growth', 2.4, 5],
+      ['Channels & Publishing', 1.2, 4], ['Jarvis voice + chat', 0.9, 3]
+    ].map(function (d) {
+      var p = Math.round(d[1] / d[2] * 100);
+      return { name: d[0], spend: '$' + d[1].toFixed(2) + ' / $' + d[2], pct: p + '%', color: p >= 80 ? '#F5B544' : '#4C9AFF' };
+    });
+
+    var topAgents = [
+      ['Jarvis', 2100, '$2.30', '71%', 'Opus'], ['Campaign Orchestrator', 1400, '$3.10', '58%', 'Opus'],
+      ['Content Creator', 960, '$1.70', '64%', 'Sonnet'], ['Social Media Strategist', 820, '$1.40', '49%', 'Sonnet'],
+      ['Canva Designer', 530, '$0.95', '52%', 'Sonnet'], ['Brand Designer', 410, '$0.70', '61%', 'Sonnet']
+    ].map(function (t) {
+      return { name: t[0], tok: (t[1] >= 1000 ? (t[1] / 1000).toFixed(1) + 'M' : t[1] + 'k'), cost: t[2], cache: t[3], pct: Math.round(t[1] / 2100 * 100) + '%', color: MCOL[t[4]] };
+    });
+
+    var kpis = [
+      { label: 'Tokens today', value: '485k', pct: '48%', color: '#4C9AFF', note: '48% of your 1M daily soft limit' },
+      { label: 'Spend this month', value: '$11.80', pct: '59%', color: '#4C9AFF', note: 'of the $20 cap · on track for $17' },
+      { label: 'Cache hit rate', value: '61%', pct: '61%', color: '#3DD68C', note: 'cache reads ÷ all input tokens' },
+      { label: '5-hour window', value: '~38%', pct: '38%', color: '#B794F6', note: 'estimate · resets in 2 h 10 min' }
+    ];
+
+    var G = '#3DD68C', A = '#F5B544', I = '#8A96A6';
+    var layers = [
+      ['Supervisor', [['Watchdog', 'Supervising · 0 restarts today', G]]],
+      ['App', [['Jarvis app', 'Up 3 d 4 h', G]]],
+      ['Front ends', [['Tray', 'Running', G], ['HUD', 'Hidden', I], ['Push-to-talk', 'Right Ctrl', G], ['Phone server', ':8765 · 2 clients', G]]],
+      ['Core', [['Voice pipeline', 'Idle', I], ['Engine', '12 requests today', G]]],
+      ['Services', [['Router', 'Qwen 58% · Haiku 30% · Opus 12%', G], ['Memory', '1,204 items', G], ['Usage log', '$11.80 this month', G]]],
+      ['Providers', [['Qwen (local)', 'Ollama reachable', G], ['Haiku', 'Key set', G], ['Opus', 'Key set', G], ['Whisper', 'base.en loaded', G], ['TTS', 'Kokoro active', G]]],
+      ['Data', [['config.toml', '2 KB', G], ['jarvis.db', '4.1 MB', G], ['usage.jsonl', '310 KB', G], ['agent_events.jsonl', '1.2 MB', A], ['logs', 'jarvis.log 18 MB: rotate', A]]]
+    ].map(function (l, i) {
+      return { name: l[0], bg: i % 2 ? '#0D1218' : '#0F141B', nodes: l[1].map(function (n) { return { name: n[0], note: n[1], dot: n[2] }; }) };
+    });
+
+    var legend = ['working', 'waiting', 'stalled', 'error', 'idle'].map(function (k) { return { label: STATES[k].label, color: STATES[k].color }; });
+    var modelLegend = order.map(function (m) { return { label: m, color: MCOL[m] }; });
+
+    return {
+      tabs: tabs,
+      isAgents: this.state.tab === 'agents', isUsage: this.state.tab === 'usage', isSystem: this.state.tab === 'system',
+      jarvis: byName['Jarvis'], orch: byName['Campaign Orchestrator'],
+      depts: depts,
+      helpers: agents.filter(function (a) { return a.dept === 'Shared helpers'; }),
+      sel: byName[this.state.selected] || byName['Jarvis'],
+      legend: legend, modelLegend: modelLegend,
+      kpis: kpis, days: days, deptSpend: deptSpend, topAgents: topAgents, layers: layers
+    };
+  }
+}
+</script>
+</body>
+</html>
