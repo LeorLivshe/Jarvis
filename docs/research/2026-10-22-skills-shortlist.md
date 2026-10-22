@@ -23,7 +23,8 @@ Skills and plugins can run code and add hooks. Install only from the exact repos
 
 ## Skip (and why)
 
-- **UI/UX Pro Max, Taste Skill:** these are style engines that clash with Impeccable. Guides consistently say to pick one, not stack them. I couldn't verify Taste Skill's repo.
+- **UI/UX Pro Max:** a style engine that clashes with Impeccable. Guides consistently say to pick one, not stack them.
+- **Taste Skill:** verified later (`Leonxlnx/taste-skill`). Use it per project for landing pages only. See `docs/setup/desktop-upgrades.md` section 7.
 - **Anthropic `frontend-design` on its own:** Impeccable already includes an extended version, and installing both duplicates the instructions.
 - **Bulk "awesome" lists** (1,000+ skills, unvetted): too much risk and noise. Pick individual skills from them only after checking each repo.
 

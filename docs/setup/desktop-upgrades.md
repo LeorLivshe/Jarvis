@@ -36,7 +36,8 @@ Background and sources are in [`../research/2026-10-22-skills-shortlist.md`](../
 | | Item | Improves | How | Check |
 |---|---|---|---|---|
 | [ ] | **Impeccable** (your one main design skill) | UI quality, plus 62 checks for AI-looking design | `/plugin marketplace add pbakaus/impeccable`, then install from `/plugin`. In the Jarvis repo: `/impeccable init` | `/impeccable critique` runs |
-| [ ] | Don't add other design engines | Avoids conflicting instructions | Skip UI/UX Pro Max, Taste Skill and Anthropic's own `frontend-design` (Impeccable includes it) | - |
+| [ ] | Don't stack design engines | Avoids conflicting instructions | Skip UI/UX Pro Max and Anthropic's own `frontend-design` (Impeccable includes it). Taste Skill is project-only (section 7). | - |
+| [ ] | **GSAP official skills** (from the reel) | Correct, smooth animation code: timelines, ScrollTrigger, React | `npx skills add greensock/gsap-skills` | Ask for a scroll animation; it uses `gsap.timeline` and `ScrollTrigger` correctly |
 | [ ] | Browser preview | Claude checks its own UI | Use the desktop app's preview pane or Playwright. **Only** for localhost pages, not social sites. | - |
 
 ## 4. Graphics: images, posters, brand assets
@@ -64,16 +65,48 @@ Background and sources are in [`../research/2026-10-22-skills-shortlist.md`](../
 | [ ] | Approval gate | Nothing posts publicly without you | Social Publisher, Email, X and Reddit agents queue drafts for your OK |
 | [ ] | Build Mission Control | The dashboard | Tell Claude: "Execute the Mission Control plan starting at Phase 0." |
 
-## 7. From the Instagram reel you sent (2026-10-22)
+## 7. Tools from the Instagram reel (researched 2026-10-22)
 
-Reel: https://www.instagram.com/reel/Deo74W0qb2G/
+Reel: https://www.instagram.com/reel/Deo74W0qb2G/ (you supplied the tool names; I checked each one against its own site or repo)
 
-> **Not filled in yet.** This environment can't open Instagram, so I couldn't watch the reel. Send the caption or a screenshot of the tools it names, and they'll be checked against their repos and added here.
+**How these fit your setup:** most are libraries for building **websites in React**. Mission Control is plain HTML with no build step, so they matter when you build a landing page or marketing site, not for Jarvis itself. Only the first group goes on the desktop now.
 
-| | Tool | What it does | Install | Verified? |
+### 7a. Install now
+
+| | Tool | What it is | Why | How |
 |---|---|---|---|---|
-| [ ] | _(from reel)_ | | | |
-| [ ] | _(from reel)_ | | | |
+| [ ] | **GSAP + official GSAP skills** | Animation library (free, including the former paid plugins) plus GreenSock's own AI skills | Teaches Claude to write correct animation code. It's free and official, so there's no third-party risk. Already listed in section 3. | `npx skills add greensock/gsap-skills` |
+
+### 7b. Add per project, when you build a website or landing page
+
+Install these **inside that project**, not globally.
+
+| | Tool | What it is | Use it for | Notes |
+|---|---|---|---|---|
+| [ ] | **Taste Skill** (tasteskill.dev, `Leonxlnx/taste-skill`, MIT) | Design skill against generic "AI slop" sites, with GSAP code patterns built in | Landing pages, marketing sites, portfolios. Its own guide says it's **not** meant for dashboards or app screens. | Clashes with Impeccable, so use it only in website projects. `/plugin marketplace add Leonxlnx/taste-skill` → `/plugin install taste-skill@taste-skill`. Install from Leonxlnx only, because a copy exists under another account. |
+| [ ] | **21st.dev Magic MCP** | Search and generate React/Tailwind components from a large community library | Building React sites fast | Needs a 21st.dev API key. Check its pricing first, then follow the install command in 21st.dev's docs. |
+| [ ] | **Motion** (motion.dev, MIT) | Animation library for React and plain JS, with springs and gestures | React interactions | Use either GSAP or Motion in a project, not both. The official Motion AI Kit (`npx motion-ai`) is part of the paid Motion+ tier. |
+| [ ] | **ThreeUI** (threeui.com, `MengTo/threeui`, MIT core) | 160+ free Three.js components and 3D hero sections, each with an agent prompt | 3D hero sections on landing pages | The Pro tier adds MCP access. The free tier is enough to start. |
+| [ ] | **React Three Fiber** (`pmndrs/react-three-fiber`) | React renderer for Three.js | Any 3D in a React site. ThreeUI-style scenes build on it. | Only if you go 3D |
+| [ ] | **ShaderGradient** (`ruucm/shadergradient`) | Animated 3D shader gradients for React, with Figma and Framer plugins | Hero backgrounds. The Figma plugin also works for **static social graphics**, with no code. | |
+| [ ] | **Kokonut UI** (the "Coconut UI" from the reel) | 100+ free React/Tailwind/Motion components on shadcn | Ready-made polished sections | Also available through 21st.dev |
+| [ ] | **Bklit UI** (the "Backlit UI" from the reel, `bklit/bklit-ui`, MIT) | Chart components on shadcn: area, bar, sankey, gauge and more | Charts in a React dashboard | Worth it if Mission Control's Usage tab ever moves to React |
+
+### 7c. Use in the browser (no install)
+
+| | Tool | Use it for |
+|---|---|---|
+| [ ] | **Liquid Logo** (`paper-design/liquid-logo`, demo at liquid.paper.design) | Turning your logo into a liquid-metal animation for brand posts and intros. Upload, export, done. |
+| [ ] | **ShaderGradient Figma plugin** | Gradient backgrounds for social posts |
+
+### 7d. Skip
+
+| Tool | Why |
+|---|---|
+| **Manus** | A separate autonomous agent that charges in credits ($20/month for 4,000). Reviewers report unpredictable credit burn, with one research task using 500–900 credits. It overlaps with what Claude and your agents already do. |
+| **Everything Claude Code** (Affaan Mustafa's ECC, MIT) | Very large: 71 agents and 311 skills. Its README warns the plugin advertises its whole catalog to the model (token cost), its rules always load, and native Windows is "supported with limitations". It would also clash with superpowers, Ponytail and your own agents. If one piece interests you, copy that piece by hand after reading it. |
+| **Anime.js** (the "Animate.js" from the reel) | Fine library, but it overlaps GSAP and Motion. Pick one animation engine. |
+| **liquid-glass-js** (`dashersw/liquid-glass-js`) | An early project: one commit, no releases, unfinished roadmap. It captures the page with html2canvas on every frame, which is heavy on performance. Revisit later. |
 
 ## Rules for anything new
 
