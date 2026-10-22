@@ -4,6 +4,7 @@
 **Goal:** better output from Claude for design, reasoning and usage, plus a setup that stays reachable while you're away.
 **How to use:** work top to bottom and tick each box. Each item says what it improves, the exact command, and how to check it worked.
 Background and sources are in [`../research/2026-10-22-skills-shortlist.md`](../research/2026-10-22-skills-shortlist.md).
+**Step-by-step installs:** [`setup-guide.md`](setup-guide.md). Part A is the desktop, Part B is the per-project website kit, Part C is browser tools.
 
 ---
 

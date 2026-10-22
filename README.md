@@ -10,6 +10,7 @@ A Windows voice assistant with a team of Claude Code agents. This repo holds the
 | [`hooks/`](hooks/) | Claude Code hook that logs agent activity for the dashboard, plus its settings snippet |
 | [`scripts/Fix-RemoteControl.ps1`](scripts/Fix-RemoteControl.ps1) | Diagnoses the 2026-10-22 Remote Control drop and keeps the desktop reachable |
 | [`docs/setup/desktop-upgrades.md`](docs/setup/desktop-upgrades.md) | **Checklist of every upgrade to install on the desktop** |
+| [`docs/setup/setup-guide.md`](docs/setup/setup-guide.md) | Step-by-step install commands for those upgrades |
 | [`docs/research/`](docs/research/) | Skills shortlist: design, reasoning, usage, graphics (not installed yet) |
 | [`mockup/`](mockup/) | Source of the clickable mockup ([view it](https://claude.ai/artifact/1wf6LpPG92pUZNg5zCwycK)) |
 
