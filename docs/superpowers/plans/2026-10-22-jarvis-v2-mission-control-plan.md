@@ -14,6 +14,8 @@
 3. List `%USERPROFILE%\.claude\agents\*.md` (and the project's `.claude\agents`). Record each agent's `name`, `model` and `tools`, and update the proposed `org.toml`.
 4. Open one recent transcript `.jsonl` and confirm three fields: `message.model`, `message.usage`, and how subagent lines are marked (`isSidechain`, agent id). Change Phase 4's parser if any differ.
 
+5. In `config.toml`, change the monthly spend cap from $20 to **$10**. Check that the router's 80% warning now fires at $8.
+
 **Done when:** the spec has been corrected against what's really there, and the baseline test results are recorded.
 
 ## Phase 1: System map (the design approved on 2026-10-22)

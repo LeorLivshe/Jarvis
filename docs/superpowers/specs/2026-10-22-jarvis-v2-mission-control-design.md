@@ -22,7 +22,7 @@ It opens from the tray ("Open Mission Control") and from your phone at `http://<
 - **Jarvis app (Python, Windows):**
   - watchdog, tray, HUD, push-to-talk, and a FastAPI phone server (`server/api.py`, `X-Jarvis-Key`);
   - engine with a router that sends work to Qwen (local, via Ollama), Claude Haiku or Claude Opus;
-  - memory in `data/jarvis.db` (SQLite) and a usage log in `usage.jsonl` (cost per request, with a monthly cap of $20);
+  - memory in `data/jarvis.db` (SQLite) and a usage log in `usage.jsonl` (cost per request; the monthly cap is currently $20 and v2 lowers it to **$10**);
   - Whisper for speech-to-text; Kokoro, Piper or SAPI for text-to-speech;
   - `config.toml` and logs.
 - **Claude Code custom agents on the desktop (14):**
@@ -100,7 +100,11 @@ Using a file instead of HTTP means the hook still works when Jarvis is off. Jarv
 | `%USERPROFILE%\.claude\projects\**\*.jsonl` (Claude Code transcripts) | per assistant message: `model` and `usage` (input, output, cache read, cache write); subagent ("sidechain") messages link back to the agent |
 
 **Views:**
-- **Totals:** today, 7 days and month to date, in tokens and dollars, with a budget bar against the $20 monthly cap.
+- **Totals:** today, 7 days and month to date, in tokens and dollars, with a budget bar against the **$10** monthly cap.
+- **Two kinds of usage, kept apart:**
+  - **Jarvis API spend** (Jarvis's own Anthropic key) is real money and counts against the $10 cap.
+  - **Claude Code usage** runs on your Claude plan. It's shown as tokens, plus an API-equivalent dollar figure for comparison only, and never counts against the $10.
+- **Default department split of the $10:** Marketing Command $2.50, Creative Studio $2.50, Strategy & Growth $2.00, Channels & Publishing $1.50, Jarvis voice and chat $1.50.
 - **Stacked area chart:** tokens per day by model.
 - **Bars:** spend by department and by agent. You can open any one and see its runs.
 - **Cache hit rate:** cache reads divided by total input. A low rate tells you where prompt caching is missing.

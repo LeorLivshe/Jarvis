@@ -23,32 +23,28 @@ a{color:#8CCBFF}a:hover{color:#C2E2FF}
 <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
 <div style="display: flex; flex-direction: column; gap: 2px">
 <h1 style="margin: 0; font-size: 22px; font-weight: 700; letter-spacing: -0.01em">Jarvis Mission Control</h1>
-<div style="font-size: 12px; color: #A3AEBD">Mockup with sample data · refreshes every 3 s in the real build</div>
+<div style="font-size: 12px; color: #A3AEBD">Usage: real numbers from today's Claude sessions (Oct 22) · Agent states: sample until the hook is installed</div>
 </div>
 <div style="display: flex; flex-wrap: wrap; gap: 8px">
 <div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #121821; border: 1px solid #243042; border-radius: 10px">
-<span style="font-size: 12px; color: #A3AEBD">Today</span>
-<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500">$1.42</span>
+<span style="font-size: 12px; color: #A3AEBD">Claude today</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500">13.16M tok</span>
 </div>
 <div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #121821; border: 1px solid #243042; border-radius: 10px">
-<span style="font-size: 12px; color: #A3AEBD">Month</span>
-<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500">$11.80 / $20</span>
+<span style="font-size: 12px; color: #A3AEBD">Jarvis API</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-weight: 500">$- / $10</span>
 </div>
 <div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #2A1A10; border: 1px solid #5C3418; border-radius: 10px; color: #FFB27A">
 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path></svg>
-<span style="font-weight: 600">2 alerts</span>
+<span style="font-weight: 600">1 alert</span>
 </div>
 </div>
 </header>
 
 <div role="status" style="display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; background: #1A130D; border: 1px solid #5C3418; border-radius: 12px">
 <div style="display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline">
-<span style="font-weight: 600; color: #FFB27A">Stalled 6 min</span>
-<span>Instagram Curator: browser screenshot hasn't returned. This is the same pattern that dropped the Remote Control session on Oct 22.</span>
-</div>
-<div style="display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline">
-<span style="font-weight: 600; color: #F5B544">Waiting 9 min</span>
-<span>Content Creator needs you to approve 3 caption options.</span>
+<span style="font-weight: 600; color: #FFB27A">Offline since 16:48 UTC</span>
+<span>Claude RC (desktop): a browser screenshot hung at 16:40, then the computer stopped responding. Run the fix script when you're home.</span>
 </div>
 </div>
 
@@ -144,7 +140,7 @@ a{color:#8CCBFF}a:hover{color:#C2E2FF}
 <div style="font-size: 12px; color: #A3AEBD">Reports to</div><div>{{sel.reportsTo}}</div>
 </div>
 <div style="display: flex; flex-direction: column; gap: 6px">
-<div style="font-size: 12px; color: #A3AEBD">Recent tasks</div>
+<div style="font-size: 12px; color: #A3AEBD">Recent tasks (sample)</div>
 <sc-for list="{{sel.recent}}" as="r" hint-placeholder-count="3">
 <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px; padding: 6px 0; border-top: 1px solid #1E2733"><span>{{r.t}}</span><span style="font-family: 'JetBrains Mono', monospace; color: #A3AEBD; white-space: nowrap">{{r.tok}}</span></div>
 </sc-for>
@@ -160,7 +156,7 @@ a{color:#8CCBFF}a:hover{color:#C2E2FF}
 <div style="flex: 1 1 200px; padding: 14px 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 6px">
 <div style="font-size: 12px; color: #A3AEBD">{{k.label}}</div>
 <div style="font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 500">{{k.value}}</div>
-<div style="height: 6px; border-radius: 3px; background: #1E2733; overflow: hidden"><div style="height: 6px; width: {{k.pct}}; background: {{k.color}}"></div></div>
+<sc-if value="{{k.hasBar}}" hint-placeholder-val="{{true}}"><div style="height: 6px; border-radius: 3px; background: #1E2733; overflow: hidden"><div style="height: 6px; width: {{k.pct}}; background: {{k.color}}"></div></div></sc-if>
 <div style="font-size: 12px; color: #A3AEBD">{{k.note}}</div>
 </div>
 </sc-for>
@@ -168,45 +164,40 @@ a{color:#8CCBFF}a:hover{color:#C2E2FF}
 
 <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch">
 <section style="flex: 999 1 520px; min-width: 0; padding: 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 12px">
-<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><h2 style="margin: 0; font-size: 15px; font-weight: 700">Tokens per day, by model</h2><span style="font-size: 12px; color: #A3AEBD">last 7 days · thousands</span></div>
-<div role="img" aria-label="Stacked bars of tokens per day by model for the last 7 days" style="display: flex; align-items: flex-end; gap: 10px; height: 200px; padding-top: 8px; border-bottom: 1px solid #243042">
-<sc-for list="{{days}}" as="d" hint-placeholder-count="7">
-<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; height: 100%; justify-content: flex-end">
-<div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #A3AEBD">{{d.total}}</div>
-<div style="width: 100%; max-width: 44px; display: flex; flex-direction: column; gap: 2px">
-<sc-for list="{{d.segs}}" as="s" hint-placeholder-count="4">
-<div style="height: {{s.h}}; background: {{s.color}}; border-radius: 3px"></div>
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><h2 style="margin: 0; font-size: 15px; font-weight: 700">Today, by session</h2><span style="font-size: 12px; color: #A3AEBD">Oct 22 · all on Opus 5.5</span></div>
+<sc-for list="{{sessions}}" as="s" hint-placeholder-count="2">
+<div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 0; border-top: 1px solid #1E2733">
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><span style="font-weight: 600">{{s.name}}</span><span style="font-family: 'JetBrains Mono', monospace">{{s.total}}</span></div>
+<div role="img" aria-label="{{s.aria}}" style="display: flex; height: 12px; width: {{s.width}}; border-radius: 3px; overflow: hidden; gap: 1px">
+<sc-for list="{{s.segs}}" as="g" hint-placeholder-count="4">
+<div style="flex: none; height: 12px; width: {{g.w}}; background: {{g.color}}"></div>
 </sc-for>
 </div>
-</div>
+<div style="display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: #A3AEBD">
+<sc-for list="{{s.segs}}" as="g" hint-placeholder-count="4">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: {{g.color}}"></span>{{g.label}} <span style="font-family: 'JetBrains Mono', monospace; color: #E7ECF2">{{g.v}}</span></span>
 </sc-for>
 </div>
-<div style="display: flex; gap: 10px">
-<sc-for list="{{days}}" as="d" hint-placeholder-count="7">
-<div style="flex: 1 1 0; text-align: center; font-size: 12px; color: #A3AEBD">{{d.d}}</div>
-</sc-for>
+<div style="font-size: 12px; color: #A3AEBD">{{s.note}}</div>
 </div>
-<div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 12px; color: #A3AEBD">
-<sc-for list="{{modelLegend}}" as="m" hint-placeholder-count="4">
-<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: {{m.color}}"></span>{{m.label}}</span>
 </sc-for>
-</div>
+<div style="font-size: 12px; color: #A3AEBD">Day-by-day history starts once Jarvis begins reading Claude Code's session logs (Phase 4 of the plan).</div>
 </section>
 
 <section style="flex: 1 1 300px; min-width: 0; padding: 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 12px">
-<h2 style="margin: 0; font-size: 15px; font-weight: 700">Spend this month, by department</h2>
+<h2 style="margin: 0; font-size: 15px; font-weight: 700">Jarvis API budget: $10 / month</h2>
 <sc-for list="{{deptSpend}}" as="ds" hint-placeholder-count="5">
 <div style="display: flex; flex-direction: column; gap: 4px">
 <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span>{{ds.name}}</span><span style="font-family: 'JetBrains Mono', monospace">{{ds.spend}}</span></div>
 <div style="height: 8px; border-radius: 4px; background: #1E2733; overflow: hidden"><div style="height: 8px; width: {{ds.pct}}; background: {{ds.color}}"></div></div>
 </div>
 </sc-for>
-<div style="font-size: 12px; color: #A3AEBD">Bars show each department's share of its own budget. Amber means 80% or more.</div>
+<div style="font-size: 12px; color: #A3AEBD">The $10 is split across departments. No spend recorded yet: these fill in from usage.jsonl and the agent hook. A bar turns amber at 80%.</div>
 </section>
 </div>
 
 <section style="padding: 16px; background: #121821; border: 1px solid #243042; border-radius: 14px; display: flex; flex-direction: column; gap: 10px">
-<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><h2 style="margin: 0; font-size: 15px; font-weight: 700">Top agents this month</h2><span style="font-size: 12px; color: #A3AEBD">tokens · cost · cache hit</span></div>
+<div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px"><h2 style="margin: 0; font-size: 15px; font-weight: 700">Who used tokens today</h2><span style="font-size: 12px; color: #A3AEBD">tokens · API-equivalent cost · cache hit</span></div>
 <div style="overflow-x: auto">
 <div style="min-width: 520px; display: flex; flex-direction: column">
 <sc-for list="{{topAgents}}" as="t" hint-placeholder-count="6">
@@ -293,7 +284,7 @@ class Component extends DCLogic {
       var mc = MODELS[r[2]];
       var a = {
         name: r[0], dept: r[1], model: r[2], state: r[3], stateLabel: st.label, dot: st.color, rank: st.rank,
-        task: r[4], taskFull: r[4], elapsed: r[5] || '', tokens: r[6] === '0' ? '-' : r[6] + ' tok', month: r[7] + ' tok',
+        task: r[4], taskFull: r[4], elapsed: r[5] || '', tokens: 'Not tracked yet', month: 'Not tracked yet',
         reportsTo: r[8], recent: r[9].map(function (x) { return { t: x[0], tok: x[1] }; }),
         modelBg: mc.bg, modelFg: mc.fg, isLead: !!leads[r[0]],
         ring: self.state.selected === r[0] ? '#8CCBFF' : '#243042',
@@ -304,9 +295,9 @@ class Component extends DCLogic {
     });
 
     var deptDefs = [
-      ['Strategy & Growth', 'Social Media Strategist', 2.4, 5],
-      ['Creative Studio', 'Content Creator', 4.2, 5],
-      ['Channels & Publishing', 'Social Publisher', 1.2, 4]
+      ['Strategy & Growth', 'Social Media Strategist', 0, 2],
+      ['Creative Studio', 'Content Creator', 0, 2.5],
+      ['Channels & Publishing', 'Social Publisher', 0, 1.5]
     ];
     var depts = deptDefs.map(function (d) {
       var members = agents.filter(function (a) { return a.dept === d[0]; });
@@ -320,7 +311,7 @@ class Component extends DCLogic {
         name: d[0], members: members,
         rollup: parts.length ? parts.join(' · ') : 'All idle',
         rollupColor: parts.length ? worst.dot : '#A3AEBD',
-        spend: '$' + d[2].toFixed(2) + ' / $' + d[3],
+        spend: '$' + d[2].toFixed(2) + ' / $' + d[3].toFixed(2),
         pct: pct + '%', barColor: pct >= 80 ? '#F5B544' : '#4C9AFF'
       };
     });
@@ -335,41 +326,54 @@ class Component extends DCLogic {
       };
     });
 
-    var MCOL = { Opus: '#B794F6', Sonnet: '#3B82F6', Haiku: '#5EEAD4', 'Qwen (local)': '#64748B' };
-    var dayData = [
-      ['Thu', 120, 210, 90, 40], ['Fri', 80, 180, 110, 35], ['Sat', 40, 90, 60, 20], ['Sun', 30, 60, 40, 25],
-      ['Mon', 150, 260, 130, 50], ['Tue', 170, 300, 150, 45], ['Wed', 95, 240, 120, 30]
+    // Real usage for Oct 22, from the two Claude sessions' own counters.
+    var fmt = function (n) {
+      if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+      if (n >= 1e3) return (n / 1e3).toFixed(1) + 'k';
+      return String(n);
+    };
+    var PARTS = [
+      ['Cache read', '#3B82F6'], ['Cache write', '#B794F6'], ['Output', '#5EEAD4'], ['Fresh input', '#F5B544']
     ];
-    var order = ['Opus', 'Sonnet', 'Haiku', 'Qwen (local)'];
-    var days = dayData.map(function (d) {
-      var total = d[1] + d[2] + d[3] + d[4];
+    var sessionData = [
+      ['This chat (cloud, from your phone)', [10674578, 205349, 61333, 4842], '$5.02 API-equivalent, covered by your Claude plan'],
+      ['Claude RC (desktop, offline since 16:48)', [2117826, 83534, 9076, 40], 'Cost not reported by the desktop session']
+    ];
+    var maxTotal = 10946102;
+    var sessions = sessionData.map(function (s) {
+      var total = s[1].reduce(function (a, b) { return a + b; }, 0);
       return {
-        d: d[0], total: total + 'k',
-        segs: order.map(function (m, i) { return { h: Math.round(d[i + 1] / 700 * 170) + 'px', color: MCOL[m] }; })
+        name: s[0], total: fmt(total) + ' tok', note: s[2],
+        width: (total / maxTotal * 100).toFixed(1) + '%',
+        aria: s[0] + ': ' + fmt(total) + ' tokens, mostly cache reads',
+        segs: PARTS.map(function (p, i) {
+          var w = s[1][i] / total * 100;
+          return { label: p[0], color: p[1], v: fmt(s[1][i]), w: (w < 0.6 && s[1][i] > 0 ? 0.6 : w).toFixed(2) + '%' };
+        })
       };
     });
 
     var deptSpend = [
-      ['Marketing Command', 3.1, 6], ['Creative Studio', 4.2, 5], ['Strategy & Growth', 2.4, 5],
-      ['Channels & Publishing', 1.2, 4], ['Jarvis voice + chat', 0.9, 3]
+      ['Marketing Command', 0, 2.5], ['Creative Studio', 0, 2.5], ['Strategy & Growth', 0, 2],
+      ['Channels & Publishing', 0, 1.5], ['Jarvis voice + chat', 0, 1.5]
     ].map(function (d) {
       var p = Math.round(d[1] / d[2] * 100);
-      return { name: d[0], spend: '$' + d[1].toFixed(2) + ' / $' + d[2], pct: p + '%', color: p >= 80 ? '#F5B544' : '#4C9AFF' };
+      return { name: d[0], spend: '$' + d[1].toFixed(2) + ' / $' + d[2].toFixed(2), pct: p + '%', color: p >= 80 ? '#F5B544' : '#4C9AFF' };
     });
 
     var topAgents = [
-      ['Jarvis', 2100, '$2.30', '71%', 'Opus'], ['Campaign Orchestrator', 1400, '$3.10', '58%', 'Opus'],
-      ['Content Creator', 960, '$1.70', '64%', 'Sonnet'], ['Social Media Strategist', 820, '$1.40', '49%', 'Sonnet'],
-      ['Canva Designer', 530, '$0.95', '52%', 'Sonnet'], ['Brand Designer', 410, '$0.70', '61%', 'Sonnet']
+      ['Main agent, this chat', 10946102, '$5.02', '98.1%'],
+      ['Main agent, Claude RC', 2210476, 'n/a', '96.2%'],
+      ['Subagents (all 14)', 0, '$0.00', '-']
     ].map(function (t) {
-      return { name: t[0], tok: (t[1] >= 1000 ? (t[1] / 1000).toFixed(1) + 'M' : t[1] + 'k'), cost: t[2], cache: t[3], pct: Math.round(t[1] / 2100 * 100) + '%', color: MCOL[t[4]] };
+      return { name: t[0], tok: fmt(t[1]), cost: t[2], cache: t[3], pct: (t[1] / maxTotal * 100).toFixed(1) + '%', color: '#B794F6' };
     });
 
     var kpis = [
-      { label: 'Tokens today', value: '485k', pct: '48%', color: '#4C9AFF', note: '48% of your 1M daily soft limit' },
-      { label: 'Spend this month', value: '$11.80', pct: '59%', color: '#4C9AFF', note: 'of the $20 cap · on track for $17' },
-      { label: 'Cache hit rate', value: '61%', pct: '61%', color: '#3DD68C', note: 'cache reads ÷ all input tokens' },
-      { label: '5-hour window', value: '~38%', pct: '38%', color: '#B794F6', note: 'estimate · resets in 2 h 10 min' }
+      { label: 'Claude tokens today', value: '13.16M', hasBar: false, note: '2 sessions · Opus 5.5 · 70.4k output tokens' },
+      { label: 'Jarvis API spend (month)', value: '$- / $10', hasBar: false, note: 'Reads usage.jsonl once you’re home · alert at $8' },
+      { label: 'Cache hit rate', value: '97.8%', hasBar: true, pct: '97.8%', color: '#3DD68C', note: '12.79M of 13.09M input tokens came from cache' },
+      { label: '5-hour window', value: 'Allowed', hasBar: false, note: 'Not rate-limited · resets 21:20 UTC · exact % isn’t exposed' }
     ];
 
     var G = '#3DD68C', A = '#F5B544', I = '#8A96A6';
@@ -378,7 +382,7 @@ class Component extends DCLogic {
       ['App', [['Jarvis app', 'Up 3 d 4 h', G]]],
       ['Front ends', [['Tray', 'Running', G], ['HUD', 'Hidden', I], ['Push-to-talk', 'Right Ctrl', G], ['Phone server', ':8765 · 2 clients', G]]],
       ['Core', [['Voice pipeline', 'Idle', I], ['Engine', '12 requests today', G]]],
-      ['Services', [['Router', 'Qwen 58% · Haiku 30% · Opus 12%', G], ['Memory', '1,204 items', G], ['Usage log', '$11.80 this month', G]]],
+      ['Services', [['Router', 'Qwen 58% · Haiku 30% · Opus 12%', G], ['Memory', '1,204 items', G], ['Usage log', '$10 monthly cap', G]]],
       ['Providers', [['Qwen (local)', 'Ollama reachable', G], ['Haiku', 'Key set', G], ['Opus', 'Key set', G], ['Whisper', 'base.en loaded', G], ['TTS', 'Kokoro active', G]]],
       ['Data', [['config.toml', '2 KB', G], ['jarvis.db', '4.1 MB', G], ['usage.jsonl', '310 KB', G], ['agent_events.jsonl', '1.2 MB', A], ['logs', 'jarvis.log 18 MB: rotate', A]]]
     ].map(function (l, i) {
@@ -386,7 +390,6 @@ class Component extends DCLogic {
     });
 
     var legend = ['working', 'waiting', 'stalled', 'error', 'idle'].map(function (k) { return { label: STATES[k].label, color: STATES[k].color }; });
-    var modelLegend = order.map(function (m) { return { label: m, color: MCOL[m] }; });
 
     return {
       tabs: tabs,
@@ -395,8 +398,8 @@ class Component extends DCLogic {
       depts: depts,
       helpers: agents.filter(function (a) { return a.dept === 'Shared helpers'; }),
       sel: byName[this.state.selected] || byName['Jarvis'],
-      legend: legend, modelLegend: modelLegend,
-      kpis: kpis, days: days, deptSpend: deptSpend, topAgents: topAgents, layers: layers
+      legend: legend,
+      kpis: kpis, sessions: sessions, deptSpend: deptSpend, topAgents: topAgents, layers: layers
     };
   }
 }
