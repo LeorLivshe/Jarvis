@@ -28,7 +28,7 @@ Background and sources are in [`../research/2026-10-22-skills-shortlist.md`](../
 | | Item | Improves | How | Check |
 |---|---|---|---|---|
 | [ ] | **Ponytail** | Less over-building. In an independent test: about −10% cost, −11% time and −15% code. | `/plugin marketplace add DietrichGebert/ponytail` → `/plugin install ponytail@ponytail` → `/ponytail lite` | A status bar appears above the prompt. `/ponytail` reports the current level. |
-| [ ] | Model per agent | Subscription limits | In each `~/.claude/agents/*.md`, set `model:`. Haiku: Content Scheduler, Social Publisher, Asset Manager, Twitter/X Engager, Reddit Community Builder, Analytics Reporter. Sonnet: Content Creator, Social Media Strategist, Growth Hacker, Brand Designer, Canva Designer, Email Campaign Manager, Instagram Curator. Opus: Campaign Orchestrator. | `/agents` lists the right models |
+| [ ] | Model per agent | Subscription limits | In each `~/.claude/agents/marketing/*.md`, replace the pinned ID in `model:` with `haiku`, `sonnet` or `opus`. Haiku: Content Scheduler, Social Publisher, Asset Manager, Twitter/X Engager, Reddit Community Builder, Analytics Reporter. Sonnet: Content Creator, Social Media Strategist, Growth Hacker, Brand Designer, Canva Designer, Email Campaign Manager, Instagram Curator. Opus: Campaign Orchestrator. | `/agents` lists the right models |
 | [ ] | Lean `CLAUDE.md` | Context cost on every turn | Keep the root `CLAUDE.md` under about 100 lines. No `@`-imports of whole docs. Put area notes in subfolder `CLAUDE.md` files. | - |
 | [ ] | Habit: `/clear` between unrelated tasks | Context cost | Habit, nothing to install | - |
 
@@ -60,7 +60,7 @@ Background and sources are in [`../research/2026-10-22-skills-shortlist.md`](../
 
 | | Item | Improves | How |
 |---|---|---|---|
-| [ ] | Agent activity hook | Live agent status in Mission Control | Copy `hooks/` into `Desktop\Claude\jarvis\hooks\`, then merge `hooks/settings-snippet.json` into `%USERPROFILE%\.claude\settings.json` |
+| [ ] | Agent activity hook | Live agent status in Mission Control | Merge `hooks/settings-snippet.json` (it runs the hook from this repo; nothing to copy) into `%USERPROFILE%\.claude\settings.json` |
 | [ ] | $10 API cap | Jarvis API spend | `config.toml`: set the monthly cap to 10 (Phase 0 of the plan) |
 | [ ] | Prompt caching in Jarvis | Jarvis API cost | Cache the system prompt and memory block in the Anthropic provider |
 | [ ] | Approval gate | Nothing posts publicly without you | Social Publisher, Email, X and Reddit agents queue drafts for your OK |

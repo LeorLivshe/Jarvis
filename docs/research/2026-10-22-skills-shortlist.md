@@ -39,7 +39,7 @@ You already have the **superpowers** plugin: brainstorming, writing-plans, syste
 Usage habits from community guides (none are official Anthropic docs):
 - **Keep `CLAUDE.md` short.** Don't `@`-import whole docs into it, because that text loads on every turn. Put area-specific notes in subfolder `CLAUDE.md` files, which only load when Claude works there.
 - **Run `/clear` between unrelated tasks.** A long, stale context costs more per turn than a fresh one.
-- **Give each agent the right model** (`model:` in its frontmatter): Haiku for scheduling and publishing, Sonnet for content and design, Opus for the Orchestrator only.
+- **Give each agent the right model** (`model:` in its frontmatter): Haiku for scheduling, publishing, assets, X, Reddit and analytics; Sonnet for content, strategy, growth, design, email and Instagram; Opus for the Orchestrator only.
 - **Keep browser and screen-control work in its own session** with a time limit. That's what hung the Remote Control session on Oct 22.
 
 ## Suggested agent mapping

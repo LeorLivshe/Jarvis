@@ -29,7 +29,12 @@ It opens from the tray ("Open Mission Control") and from your phone at `http://<
   - Analytics Reporter, Asset Manager, Brand Designer, Campaign Orchestrator, Canva Designer, Content Creator, Content Scheduler, Email Campaign Manager, Growth Hacker, Instagram Curator, Reddit Community Builder, Social Media Strategist, Social Publisher, Twitter/X Engager;
   - plus the built-ins (general-purpose, Explore, Plan, claude-code-guide, statusline-setup).
 
-> **Check first:** I haven't seen the agent `.md` files, their `model:` settings, or the Jarvis source beyond `server/api.py` and `app.py`. Phase 0 of the plan confirms these before anything is built.
+> **Checked on 2026-10-23:**
+> - The agent files are in `%USERPROFILE%\.claude\agents\marketing\`. Their `model:` fields hold pinned IDs (8 Haiku 4.5, 6 Sonnet 4.6), not short names.
+> - The Anthropic provider already caches the system prompt and records all four token counts.
+> - The cap check is a single `over_cap` test in `core/engine.py`; there's no 80% warning yet.
+>
+> Phase 0 of the plan still confirms the rest before anything is built.
 
 ## 3. Org chart
 
@@ -60,7 +65,7 @@ members = ["Growth Hacker", "Analytics Reporter"]
 ```
 
 - **Loader check:** every name must match an agent file, and there must be no cycles. Anything left unassigned goes in an "Unassigned" box, so a new agent never disappears from the chart.
-- **Model per agent:** read from the agent file's `model:` field (`opus`, `sonnet`, `haiku` or `inherit`), then replaced by the model actually seen in its most recent run.
+- **Model per agent:** read from the agent file's `model:` field (`opus`, `sonnet`, `haiku`, `inherit`, or a full ID such as `claude-sonnet-4-6`, shown as its family), then replaced by the model actually seen in its most recent run.
 
 ## 4. Live state
 

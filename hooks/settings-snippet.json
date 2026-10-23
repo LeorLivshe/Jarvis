@@ -1,11 +1,11 @@
 {
   "hooks": {
-    "SessionStart":     [{ "hooks": [{ "type": "command", "command": "python C:/Users/Leor/Desktop/Claude/jarvis/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
-    "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "python C:/Users/Leor/Desktop/Claude/jarvis/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
-    "PreToolUse":       [{ "matcher": "*", "hooks": [{ "type": "command", "command": "python C:/Users/Leor/Desktop/Claude/jarvis/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
-    "PostToolUse":      [{ "matcher": "*", "hooks": [{ "type": "command", "command": "python C:/Users/Leor/Desktop/Claude/jarvis/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
-    "SubagentStop":     [{ "hooks": [{ "type": "command", "command": "python C:/Users/Leor/Desktop/Claude/jarvis/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
-    "Notification":     [{ "hooks": [{ "type": "command", "command": "python C:/Users/Leor/Desktop/Claude/jarvis/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
-    "Stop":             [{ "hooks": [{ "type": "command", "command": "python C:/Users/Leor/Desktop/Claude/jarvis/hooks/jarvis_agent_hook.py", "timeout": 5 }] }]
+    "SessionStart":     [{ "hooks": [{ "type": "command", "command": "C:/Python312/python.exe C:/Users/Leor/Desktop/Claude/jarvis-v2/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
+    "UserPromptSubmit": [{ "hooks": [{ "type": "command", "command": "C:/Python312/python.exe C:/Users/Leor/Desktop/Claude/jarvis-v2/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
+    "PreToolUse":       [{ "matcher": "*", "hooks": [{ "type": "command", "command": "C:/Python312/python.exe C:/Users/Leor/Desktop/Claude/jarvis-v2/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
+    "PostToolUse":      [{ "matcher": "*", "hooks": [{ "type": "command", "command": "C:/Python312/python.exe C:/Users/Leor/Desktop/Claude/jarvis-v2/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
+    "SubagentStop":     [{ "hooks": [{ "type": "command", "command": "C:/Python312/python.exe C:/Users/Leor/Desktop/Claude/jarvis-v2/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
+    "Notification":     [{ "hooks": [{ "type": "command", "command": "C:/Python312/python.exe C:/Users/Leor/Desktop/Claude/jarvis-v2/hooks/jarvis_agent_hook.py", "timeout": 5 }] }],
+    "Stop":             [{ "hooks": [{ "type": "command", "command": "C:/Python312/python.exe C:/Users/Leor/Desktop/Claude/jarvis-v2/hooks/jarvis_agent_hook.py", "timeout": 5 }] }]
   }
 }

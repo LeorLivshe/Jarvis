@@ -10,7 +10,7 @@ Jarvis is Leor's Windows voice assistant (Python: tray, HUD, FastAPI phone serve
 1. **Leor runs `HANDOFF.md` steps 1–4 himself.** They need an admin PowerShell window and app settings. Don't run `scripts/Fix-RemoteControl.ps1` for him unless he asks.
 2. **Desktop upgrades:** follow `docs/setup/setup-guide.md` Part A in order, ticking items in `docs/setup/desktop-upgrades.md`.
    - Commands starting with `/` (`/plugin ...`, `/ponytail`, `/impeccable init`) must be **typed by Leor**. List them for him in one block, then wait.
-   - You can run terminal commands (`npx skills add ...`, `claude mcp add ...`) and edit the agent files in `%USERPROFILE%\.claude\agents\`. Show the planned edits first.
+   - You can run terminal commands (`npx skills add ...`, `claude mcp add ...`) and edit the agent files in `%USERPROFILE%\.claude\agents\marketing\`. Show the planned edits first.
 3. **Back up the app code:** ask before moving it. Check `.env`, `data\`, `models\`, `dist\` and `build\` are git-ignored. Put the code under an `app/` folder in this repo so it doesn't collide with this repo's `README.md`.
 4. **Build Mission Control:** execute `docs/superpowers/plans/2026-10-22-jarvis-v2-mission-control-plan.md` from Phase 0. The spec is in `docs/superpowers/specs/`.
 

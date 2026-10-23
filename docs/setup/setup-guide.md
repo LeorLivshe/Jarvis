@@ -63,7 +63,7 @@ It's already connected on claude.ai. In the desktop app, open **Settings → Con
 - **Agent:** add one line to `Canva Designer.md`: *"Use the Canva connector for every design; never invent brand colours, read them from the brand kit."*
 
 ### A7. Model per agent: protects your subscription limits
-Edit each file in `%USERPROFILE%\.claude\agents\` and set the `model:` line in the frontmatter:
+Edit each file in `%USERPROFILE%\.claude\agents\marketing\` and set the `model:` line in the frontmatter. Today they hold pinned IDs (`claude-haiku-4-5-20251001`, `claude-sonnet-4-6`); replace them with the short names below so each agent follows the current model:
 
 | `model: haiku` | `model: sonnet` | `model: opus` |
 |---|---|---|
@@ -77,10 +77,8 @@ Add the matching skill line to each agent's instructions:
 **Check:** `/agents` shows the models.
 
 ### A8. Agent activity hook: live status in Mission Control
-```powershell
-mkdir C:\Users\Leor\Desktop\Claude\jarvis\hooks
-copy hooks\jarvis_agent_hook.py C:\Users\Leor\Desktop\Claude\jarvis\hooks\
-```
+The hook runs from this repo (`jarvis-v2\hooks\`), so there's nothing to copy, and it keeps working after the app code moves into `app/`. It uses `C:\Python312\python.exe` directly, so it doesn't depend on PATH.
+
 Merge the `"hooks"` block from `hooks\settings-snippet.json` into `%USERPROFILE%\.claude\settings.json`. If that file already has `"hooks"`, add these entries next to the existing ones.
 - **Check:** run any subagent, then open `%APPDATA%\Jarvis\agent_events.jsonl`. It should have new lines.
 
