@@ -16,17 +16,17 @@ The script below confirms which of these happened.
 
 ## Steps (about 20 minutes)
 
-1. **Get the files onto the desktop.** Run `git clone https://github.com/LeorLivshe/Jarvis` (or download the repo as a zip from GitHub).
+1. **Get the files onto the desktop.** In PowerShell: `cd $HOME\Desktop\Claude` then `git clone https://github.com/LeorLivshe/Jarvis jarvis-v2`. Use the name `jarvis-v2`: Windows treats `Jarvis` and your existing `jarvis` app folder as the same name.
 2. **Run the fix script.** Open PowerShell with **Run as administrator**, then:
    ```powershell
-   cd Jarvis
+   cd $HOME\Desktop\Claude\jarvis-v2
    powershell -ExecutionPolicy Bypass -File .\scripts\Fix-RemoteControl.ps1 -DiagnoseOnly   # look first
    powershell -ExecutionPolicy Bypass -File .\scripts\Fix-RemoteControl.ps1                 # then apply
    ```
    Read `RemoteControl-Diagnosis.txt` on your Desktop.
 3. **Set up remote access.** Finish Chrome Remote Desktop setup (the script opens the page). Then a hang while you're out is fixable from your phone.
 4. **Make the desktop app start with Windows.** In the Claude desktop app, turn on launch at login.
-5. **Start a Claude Code session in the cloned `Jarvis` folder** and paste the prompt below. It reads `CLAUDE.md` and works through the upgrades, then Mission Control, in order. It will hand you the `/plugin` commands to type yourself.
+5. **Start a Claude Code session in the `Desktop\Claude\jarvis-v2` folder** and paste the prompt below. It reads `CLAUDE.md` and works through the upgrades, then Mission Control, in order. It will hand you the `/plugin` commands to type yourself.
 6. **Tidy up.** Delete the leftover branch `claude/remote-control-session-closure-dgt6ji` from the `cv` repo: `git push origin --delete claude/remote-control-session-closure-dgt6ji`, or use the trash icon at github.com/LeorLivshe/cv/branches.
 
 ## Files

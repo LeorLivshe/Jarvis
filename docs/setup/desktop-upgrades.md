@@ -10,7 +10,7 @@ Background and sources are in [`../research/2026-10-22-skills-shortlist.md`](../
 
 ## 0. Before anything (10 min)
 
-- [ ] **Clone this repo:** `git clone https://github.com/LeorLivshe/Jarvis`
+- [ ] **Clone this repo:** `git clone https://github.com/LeorLivshe/Jarvis jarvis-v2` from `Desktop\Claude` (not plain `Jarvis`, which would clash with your existing `jarvis` folder)
 - [ ] **Update Claude Code and the desktop app.** Ponytail's status bar needs Claude Code 2.1.290 or later. Check with `claude --version`.
 - [ ] **Delete the leftover branch in the `cv` repo:** `git push origin --delete claude/remote-control-session-closure-dgt6ji`
 

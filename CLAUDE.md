@@ -2,7 +2,7 @@
 
 Jarvis is Leor's Windows voice assistant (Python: tray, HUD, FastAPI phone server, router across Qwen (local), Claude Haiku and Claude Opus) plus 14 Claude Code marketing agents.
 
-- **This repo** holds the v2 docs, the agent hook, the desktop fix script and the mockup.
+- **This repo** (cloned at `C:\Users\Leor\Desktop\Claude\jarvis-v2`) holds the v2 docs, the agent hook, the desktop fix script and the mockup.
 - **The app code** lives at `C:\Users\Leor\Desktop\Claude\jarvis` and is not in this repo yet (task 3 below).
 
 ## Order of work on the desktop
